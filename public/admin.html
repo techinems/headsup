@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>Heads up</title>
+</head>
+<body>
+    <div class="container">
+        <div class="row" id="notes">
+
+        </div>
+        <!-- This will remain empt for now but eventually you'd be able to edit crew info here -->
+        <div class="row" id="crew">
+
+        </div>
+        <div class="row">
+            <div class="col">
+                <form onsubmit="createNote()">
+                    <div class="form-group">
+                        <div class="form-group">
+                            <label for="new-notes">Note</label>
+                            <textarea class="form-control" id="new-notes" rows="3" placeholder="Write your note here"></textarea>
+                        </div>
+                        <button class="btn-success" type="submit">Create Note</button>
+                    </div>
+                </form>
+            </div>
+            <div class="col">
+                <button class="btn-danger">Register Call</button>
+            </div>
+        </div>
+    </div>
+</body>
+<script type="text/javascript" src="public/admin.js"></script>
+</html>

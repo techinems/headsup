@@ -20,6 +20,18 @@ async function updateCrew() {
     }
 }
 
+async function updateNotes() {
+    document.querySelector("#notes").innerHTML = "";
+    const response = await fetch(`/notes`);
+    const notes = (await response.json()).data;
+    for (const note of notes) {
+        const span = document.createElement('span');
+        const paragraph = document.createElement('p');
+        paragraph.textContent = note.note;
+        span.appendChild(paragraph);
+        document.querySelector('#notes').appendChild(span);
+    }
+}
 function updateDate() {
     const todays_date = moment();
     document.querySelector('#date').innerHTML = todays_date.format('MM/DD/YYYY');
@@ -27,8 +39,10 @@ function updateDate() {
 
 updateCrew();
 updateDate();
+updateNotes();
 
 setInterval(async () => {
     updateDate();
     updateCrew();
+    updateNotes();
 }, 60000);
