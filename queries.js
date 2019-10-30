@@ -17,7 +17,16 @@ function constructCrewQuery() {
         WHERE
         m.id = c.cc AND
         c.date = '${crew_date}'
-    ) as CC,
+    ) as cc,
+    (
+        SELECT m.radionum
+        FROM 
+        crews c,
+        members m
+        WHERE
+        m.id = c.cc AND
+        c.date = '${crew_date}'
+    ) as ccrn,
     (
         SELECT CONCAT(SUBSTRING(m.first_name, 1, 1), '. ', m.last_name)
         FROM 
@@ -26,7 +35,16 @@ function constructCrewQuery() {
         WHERE
         m.id = c.driver AND
         c.date = '${crew_date}'
-    ) as Driver,
+    ) as driver,
+    (
+        SELECT m.radionum
+        FROM 
+        crews c,
+        members m
+        WHERE
+        m.id = c.driver AND
+        c.date = '${crew_date}'
+    ) as driverrn,
     (
         SELECT CONCAT(SUBSTRING(m.first_name, 1, 1), '. ', m.last_name)
         FROM 
@@ -35,7 +53,16 @@ function constructCrewQuery() {
         WHERE
         m.id = c.attendant AND
         c.date = '${crew_date}'
-    ) as Rider1,
+    ) as rider1,
+    (
+        SELECT m.radionum
+        FROM 
+        crews c,
+        members m
+        WHERE
+        m.id = c.attendant AND
+        c.date = '${crew_date}'
+    ) as rider1rn,
     (
         SELECT CONCAT(SUBSTRING(m.first_name, 1, 1), '. ', m.last_name)
         FROM 
@@ -44,7 +71,16 @@ function constructCrewQuery() {
         WHERE
         m.id = c.observer AND
         c.date = '${crew_date}'
-    ) as Rider2;`;
+    ) as rider2,
+    (
+        SELECT m.radionum
+        FROM 
+        crews c,
+        members m
+        WHERE
+        m.id = c.observer AND
+        c.date = '${crew_date}'
+    ) as rider2rn;`;
     return crew_query;
 }
 
