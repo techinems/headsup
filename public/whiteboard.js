@@ -1,3 +1,5 @@
+/* global moment */
+
 async function updateCrew() {
     const response = await fetch('/crew');
     let crew = await response.json();
@@ -41,7 +43,7 @@ updateCrew();
 updateDate();
 updateNotes();
 
-setInterval(async () => {
+setInterval(() => {
     updateDate();
     updateCrew();
     updateNotes();
