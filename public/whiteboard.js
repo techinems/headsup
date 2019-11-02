@@ -1,12 +1,12 @@
 /* global moment */
 
-async function updateCrew() {
-    const response = await fetch('/crew');
-    let crew = await response.json();
+async function updateCrew(crew_response) {
+    let crew = crew_response;
     if (!crew.success) {
         console.error('Failed to fetch!');
     } else {
         crew = crew.data[0];
+        console.log(crew);
         const rider_radio_nums = [993, 992];
         // Sets the rider's radionums to 992 and 993 if they don't have one
         crew.rider1rn = crew.rider1rn == 0 ? rider_radio_nums.pop() : crew.rider1rn;
@@ -22,10 +22,9 @@ async function updateCrew() {
     }
 }
 
-async function updateNotes() {
+async function updateNotes(note_response) {
     document.querySelector('#notes').innerHTML = '';
-    const response = await fetch('/notes');
-    const notes = (await response.json()).data;
+    const notes = note_response.data;
     for (const note of notes) {
         const span = document.createElement('span');
         const paragraph = document.createElement('p');
@@ -37,17 +36,19 @@ async function updateNotes() {
 function updateDate() {
     const todays_date = moment();
     document.querySelector('#date').innerHTML =  todays_date.format('D MMM YY');
-    document.querySelector('#time').innerHTML = todays_date.format('H:mm');
+    document.querySelector('#time').innerHTML = todays_date.format('HH:mm');
 }
 
-updateCrew();
 updateDate();
-updateNotes();
 
-setInterval(() => {
-    updateCrew();
-    updateNotes();
-}, 60000);
+const socket = io.connect();
+socket.on('notes', async (note_response) => {
+    updateNotes(note_response);
+});
+
+socket.on('crews', (crew_response) => {
+    updateCrew(crew_response);
+});
 
 setInterval(() => {
     updateDate();

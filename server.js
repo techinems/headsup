@@ -5,7 +5,8 @@ const mariadb = require('mariadb');
 const bodyParser = require('body-parser');
 const server = require('http').Server(app);
 const io = require('socket.io')(server);
-const queries = require('./queries.js');
+const notes = require('./notes.js');
+const crews = require('./crews.js');
 
 require('dotenv').config();
 
@@ -33,86 +34,36 @@ app.get('/admin', (req, res) => {
 });
 
 app.get('/crew', async (req, res) => {
-    let conn;
-    try {
-        conn = await pool.getConnection();
-        await conn.query('USE ambulanc_web;');
-        const today_crew = await conn.query(queries.constructCrewQuery());
-        // Metadata isn"t super important to us
-        delete today_crew['meta'];
-        res.send({ success: true, data: today_crew });
-    } catch (err) {
-        console.error(err);
-        res.send({ success: false });
-    } finally {
-        if (conn) {
-            conn.release();
-        }
-    }
+    const response_data = await crews.getCrew(pool);
+    res.send(response_data);
 });
 
 app.get('/notes', async (req, res) => {
-    let conn;
-    try {
-        conn = await pool.getConnection();
-        await conn.query('USE headsup;');
-        const notes = await conn.query('SELECT * from notes;');
-        // Metadata isn"t super important to us
-        delete notes['meta'];
-        res.send({ success: true, data: notes });
-    } catch (err) {
-        console.error(err);
-        res.send({ success: false });
-    } finally {
-        if (conn) {
-            conn.release();
-        }
-    }
+    const response_data = await notes.getNotes(pool);
+    io.emit('notes', await notes.getNotes(pool));
+    res.send(response_data);
 });
 
 app.post('/note/create', async (req, res) => {
-    let conn;
-    try {
-        conn = await pool.getConnection();
-        await conn.query('USE headsup;');
-        const notes = await conn.query(
-            'INSERT INTO notes (note) VALUES (?)',
-            [req.body.note]
-        );
-        // Metadata isn"t super important to us
-        delete notes['meta'];
-        res.send({ success: true });
-    } catch (err) {
-        console.error(err);
-        res.send({ success: false });
-    } finally {
-        if (conn) {
-            conn.release();
-        }
-    }
+    const response_data = await notes.createNote(pool, req.body.note);
+    io.emit('notes', await notes.getNotes(pool));
+    res.send(response_data);
 });
 
 app.post('/note/delete', async (req, res) => {
-    let conn;
-    try {
-        conn = await pool.getConnection();
-        await conn.query('USE headsup;');
-        const notes = await conn.query('DELETE FROM notes where id = ?', [req.body.note]);
-        // Metadata isn"t super important to us
-        delete notes['meta'];
-        res.send({ success: true });
-    } catch (err) {
-        console.error(err);
-        res.send({ success: false });
-    } finally {
-        if (conn) {
-            conn.release();
-        }
-    }
+    const response_data = await notes.deleteNote(pool, req.body.note);
+    io.emit('notes', await notes.getNotes(pool));
+    res.send(response_data);
 });
 
-io.on('connection', () => {
-    console.log('Socket connected!');
+io.on('connection', async () => {
+    console.log('Connected');
+    io.emit('notes', await notes.getNotes(pool));
+    io.emit('crews', await crews.getCrew(pool));
 });
+
+// setInterval(async () => {
+//     io.emit('crews', await crews.getCrew(pool));
+// }, 60000);
 
 server.listen(PORT, () => console.log('Headsup is up!'));
