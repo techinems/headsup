@@ -1,7 +1,10 @@
 const express = require('express');
+const app = express();
 const path = require('path');
 const mariadb = require('mariadb');
 const bodyParser = require('body-parser');
+const server = require('http').Server(app);
+const io = require('socket.io')(server);
 const queries = require('./queries.js');
 
 require('dotenv').config();
@@ -15,7 +18,6 @@ const pool = mariadb.createPool({
 
 // Initialize express app
 const PORT = process.env.PORT || 8080;
-const app = express();
 
 // app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -109,4 +111,8 @@ app.post('/note/delete', async (req, res) => {
     }
 });
 
-app.listen(PORT, () => console.log('Headsup is up!'));
+io.on('connection', () => {
+    console.log('Socket connected!');
+});
+
+server.listen(PORT, () => console.log('Headsup is up!'));
