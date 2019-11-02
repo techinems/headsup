@@ -1,5 +1,5 @@
 async function updateCrew() {
-    const response = await fetch(`/crew`);
+    const response = await fetch('/crew');
     let crew = await response.json();
     if (!crew.success) {
         console.error('Failed to fetch!');
@@ -21,8 +21,8 @@ async function updateCrew() {
 }
 
 async function updateNotes() {
-    document.querySelector("#notes").innerHTML = "";
-    const response = await fetch(`/notes`);
+    document.querySelector('#notes').innerHTML = '';
+    const response = await fetch('/notes');
     const notes = (await response.json()).data;
     for (const note of notes) {
         const span = document.createElement('span');
