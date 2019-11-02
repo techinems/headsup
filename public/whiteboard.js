@@ -1,6 +1,6 @@
-/* global moment */
+/* global moment, io */
 
-async function updateCrew(crew_response) {
+function updateCrew(crew_response) {
     let crew = crew_response;
     if (!crew.success) {
         console.error('Failed to fetch!');
@@ -22,7 +22,7 @@ async function updateCrew(crew_response) {
     }
 }
 
-async function updateNotes(note_response) {
+function updateNotes(note_response) {
     document.querySelector('#notes').innerHTML = '';
     const notes = note_response.data;
     for (const note of notes) {
@@ -42,7 +42,7 @@ function updateDate() {
 updateDate();
 
 const socket = io.connect();
-socket.on('notes', async (note_response) => {
+socket.on('notes', (note_response) => {
     updateNotes(note_response);
 });
 
