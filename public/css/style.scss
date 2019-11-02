@@ -6,10 +6,59 @@
   background-color: #333333;
   font-size: 22px;
   color: white;
-  margin-bottom: 15px;
 }
 
 #time {
   margin-left: 30px;
   color: #ddd;
+}
+
+.section-heading {
+  text-transform: uppercase;
+  font-size: 20px;
+  color: #444;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+#schedule {
+  div:not(.section-heading) {
+    padding: 0 15px;
+  }
+
+  .crew-member {
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+    padding-top: 5px;
+    border-bottom: 1px solid #ddd;
+
+    &:last-child {
+      border-bottom: 0;
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    .title {
+      display: block;
+      font-size: 18px;
+      color: #444;
+      text-transform: uppercase;
+      line-height: 1;
+    }
+
+    .name {
+      font-size: 36px;
+      line-height: 1;
+    }
+
+    .rn {
+      margin-left: 15px;
+      font-size: 22px;
+      color: #666;
+    }
+  }
+}
+
+#call-volume {
+  border-left: 2px solid black;
 }

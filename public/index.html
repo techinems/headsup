@@ -18,53 +18,58 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-md-9">
-        <div class="row">
-          <div class="col-md-2"><b>Title</b></div>
-          <div class="col-md-6"><b>Name</b></div>
-          <div class="col-md-4"><b>900#</b></div>
-        </div>
-        <div class="row">
-          <div class="col-md-2"><b>Crew Chief</b></div>
-          <div class="col-md-6"><span id="cc"></span></div>
-          <div class="col-md-4"><span id="ccrn"></span></div>
-        </div>
-        <div class="row">
-          <div class="col-md-2"><b>Driver</b></div>
-          <div class="col-md-6"><span id="driver"></span></div>
-          <div class="col-md-4"><span id="driverrn"></span></div>
-        </div>
-        <div class="row">
-          <div class="col-md-2"><b>Rider</b></div>
-          <div class="col-md-6"><span id="rider1"></span></div>
-          <div class="col-md-4"><span id="rider1rn"></span></div>
-        </div>
-        <div class="row">
-          <div class="col-md-2"><b>Rider</b></div>
-          <div class="col-md-6"><span id="rider2"></span></div>
-          <div class="col-md-4"><span id="rider2rn"></span></div>
-        </div>
-        <div class="row">
+      <div id="schedule" class="col-md-8">
+        <div class="section-heading">Today's crew</div>
+        <div class="row crew-member">
           <div class="col-md-12">
-            <div class="row">
-              <div class="col-md-4">
-                <h1>Chores</h1>
-              </div>
-              <div class="col-md-4">
-                <h1>Notes</h1>
-                <div id="notes">
-
-                </div>
-              </div>
-              <div class="col-md-4">
-                <h1>Calls</h1>
-              </div>
-            </div>
+            <span class="title">Crew chief</span>
+            <span id="cc" class="name"></span><span id="ccrn" class="rn"></span>
+          </div>
+        </div>
+        <div class="row crew-member">
+          <div class="col-md-12">
+            <span class="title">Driver</span>
+            <span id="driver" class="name"></span><span id="driverrn" class="rn"></span>
+          </div>
+        </div>
+        <div class="row crew-member">
+          <div class="col-md-12">
+            <span class="title">Attendant</span>
+            <span id="rider1" class="name"></span><span id="rider1rn" class="rn"></span>
+          </div>
+        </div>
+        <div class="row crew-member">
+          <div class="col-md-12">
+            <span class="title">Attendant</span>
+            <span id="rider2" class="name"></span><span id="rider2rn" class="rn"></span>
+          </div>
+        </div>
+        <div class="row crew-member">
+          <div class="col-md-12">
+            <span class="title">Duty supervisor</span>
+            <span class="name">D. Bruce</span><span class="rn">987</span>
           </div>
         </div>
       </div>
-      <div class="col-md-3">
+      <div id="call-volume" class="col-md-4">
+        <div class="section-heading">Calls to date</div>
+      </div>
+    </div>
+    <hr>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="row">
+          <div class="col-md-4">
+            <h1>Chores</h1>
+          </div>
+          <div class="col-md-4">
+            <h1>Notes</h1>
+            <div id="notes">
 
+            </div>
+          </div>
+
+        </div>
       </div>
     </div>
   </div>
