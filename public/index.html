@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sarabun:400,600&display=swap">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <link rel="stylesheet" href="public/css/style.min.css">
   <title>Heads up</title>
@@ -12,6 +13,8 @@
   <div class="container-fluid">
     <div id="header" class="row">
       <div class="col-md-9">
+        <img id="patch" src="public/img/patch_minimal.svg" alt="RPIA patch">
+        RPI Ambulance
       </div>
       <div class="col-md-3 datetime">
         <b><span id="date"></span></b><span id="time"></span>
@@ -29,7 +32,7 @@
         <div class="row crew-member">
           <div class="col-md-12">
             <span class="title">Driver</span>
-            <span id="driver" class="name"></span><span id="driverrn" class="rn"></span>
+            <span id="driver" class="name vacant">Vacant</span><span id="driverrn" class="rn"></span>
           </div>
         </div>
         <div class="row crew-member">
@@ -60,21 +63,19 @@
       <div class="col-md-12">
         <div class="row">
           <div class="col-md-4">
-            <h1>Chores</h1>
+            <div class="section-heading">Chores</div>
+            <span id="chores"></span>
           </div>
           <div class="col-md-4">
-            <h1>Notes</h1>
-            <div id="notes">
-
-            </div>
+            <div class="section-heading">Notes</div>
+            <span id="notes"></span>
           </div>
-
         </div>
       </div>
     </div>
   </div>
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
   <script src="/socket.io/socket.io.js"></script>
-  <script type="text/javascript" src="public/whiteboard.js"></script>
+  <script type="text/javascript" src="public/js/whiteboard.js"></script>
 </body>
 </html>
