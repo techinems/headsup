@@ -6,7 +6,6 @@ function updateCrew(crew_response) {
         console.error('Failed to fetch!');
     } else {
         crew = crew.data[0];
-        console.log(crew);
         const rider_radio_nums = [993, 992];
         // Sets the rider's radionums to 992 and 993 if they don't have one
         crew.rider1rn = crew.rider1rn == 0 ? rider_radio_nums.pop() : crew.rider1rn;
@@ -33,6 +32,11 @@ function updateNotes(note_response) {
         document.querySelector('#notes').appendChild(span);
     }
 }
+
+function updateCallCount(call_response) {
+    console.log(call_response.call_count);
+}
+
 function updateDate() {
     const todays_date = moment();
     document.querySelector('#date').innerHTML =  todays_date.format('D MMM YY');
@@ -48,6 +52,10 @@ socket.on('notes', (note_response) => {
 
 socket.on('crews', (crew_response) => {
     updateCrew(crew_response);
+});
+
+socket.on('calls', (call_response) => {
+    updateCallCount(call_response); 
 });
 
 setInterval(() => {

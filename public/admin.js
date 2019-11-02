@@ -42,4 +42,34 @@ function deleteNote(note_id) {
     getNotes();
 }
 
+async function generateCategoryDropdown() {
+    const response = await fetch('/public/call-categories.json');
+    const categories = await response.json();
+    for (const category of categories) {
+        const option = document.createElement('option');
+        option.value = category;
+        option.textContent = category;
+        document.querySelector('#category').appendChild(option);
+    }
+}
+
+// eslint-disable-next-line
+async function addCall() {
+    const prid = document.querySelector('#prid').value;
+    const cc = document.querySelector('#tic').value;
+    const driver = document.querySelector('#driver').value;
+    const category = document.querySelector('#category').value;
+    const response = document.querySelector('#response').value;
+    const call_data = { prid, cc, driver, category, response };
+    fetch('/call/create', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        redirect: 'follow',
+        body: JSON.stringify(call_data)
+    });
+}
+
 getNotes();
+generateCategoryDropdown();

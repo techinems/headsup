@@ -12,6 +12,7 @@ CREATE TABLE calls (
     prid int NOT NULL,
     cc varchar(255) NOT NULL,
     driver varchar(255) NOT NULL,
+    category varchar(255) NOT NULL,
     response_code char(3) NOT NULL,
     PRIMARY KEY (prid)
 );

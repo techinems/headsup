@@ -29,7 +29,37 @@
                 </form>
             </div>
             <div class="col">
-                <button class="btn-danger">Register Call</button>
+                <form onsubmit="addCall()">
+                    <div class="form-group">
+                        <label for="prid">PRID</label>
+                        <input type="number" id="prid" required></input>
+                    </div>
+                    <div class="form-group">
+                        <label for="tic">Crew Chief</label>
+                        <input type="text" id="tic" required></input>
+                    </div>
+                    <div class="form-group">
+                        <label for="driver">Driver</label>
+                        <input type="text" id="driver" required></input>
+                    </div>
+                    <div class="form-group">
+                        <label for="category">Call Category</label>
+                        <select class="form-control" id="category" required></select>
+                    </div>
+                    <div class="form-group">
+                        <label for="response">Response Code</label>
+                        <select class="form-control" id="response" required>
+                            <option value="A">Alpha</option>
+                            <option value="B">Bravo</option>
+                            <option value="C">Charlie</option>
+                            <option value="D">Delta</option>
+                            <option value="E">Echo</option>
+                            <option value="F/I">Field Initiated</option>
+                            <option value="S">Standby</option>
+                        </select>
+                    </div>
+                    <button class="btn-danger" type="submit">Register Call</button>
+                </form>
             </div>
         </div>
     </div>

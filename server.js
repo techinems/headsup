@@ -7,6 +7,7 @@ const server = require('http').Server(app);
 const io = require('socket.io')(server);
 const notes = require('./notes.js');
 const crews = require('./crews.js');
+const calls = require('./calls.js');
 
 require('dotenv').config();
 
@@ -44,6 +45,17 @@ app.get('/notes', async (req, res) => {
     res.send(response_data);
 });
 
+app.post('/call/create', async (req, res) => {
+    const response_data = await calls.createCall(pool, req.body);
+    io.emit('calls', response_data);
+    res.send(response_data);
+});
+
+app.get('/calls', async (req, res) => {
+    const response_data = await calls.getTotalCalls(pool);
+    res.send(response_data);
+});
+
 app.post('/note/create', async (req, res) => {
     const response_data = await notes.createNote(pool, req.body.note);
     io.emit('notes', await notes.getNotes(pool));
@@ -57,13 +69,13 @@ app.post('/note/delete', async (req, res) => {
 });
 
 io.on('connection', async () => {
-    console.log('Connected');
     io.emit('notes', await notes.getNotes(pool));
     io.emit('crews', await crews.getCrew(pool));
+    io.emit('calls', await calls.getTotalCalls(pool));
 });
 
-// setInterval(async () => {
-//     io.emit('crews', await crews.getCrew(pool));
-// }, 60000);
+setInterval(async () => {
+    io.emit('crews', await crews.getCrew(pool));
+}, 60000);
 
 server.listen(PORT, () => console.log('Headsup is up!'));
