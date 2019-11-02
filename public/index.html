@@ -1,60 +1,74 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <title>Heads up</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="public/css/style.min.css">
+  <title>Heads up</title>
 </head>
 <body>
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-2"><b>Title</b></div>
-            <div class="col-md-6"><b>Name</b></div>
-            <div class="col-md-2"><b>900#</b></div>
-            <div class="col-md-2"><b>Date: <span id="date"></span></b></div>
-        </div>
-        <div class="row">
-            <div class="col-md-2"><b>Crew Chief</b></div>
-            <div class="col-md-8"><span id="cc"></span></div>
-            <div class="col-md-2"><span id="ccrn"></span></div>
-        </div>
-        <div class="row">
-                <div class="col-md-2"><b>Driver</b></div>
-                <div class="col-md-8"><span id="driver"></span></div>
-                <div class="col-md-2"><span id="driverrn"></span></div>
-        </div>
-        <div class="row">
-                <div class="col-md-2"><b>Rider</b></div>
-                <div class="col-md-8"><span id="rider1"></span></div>
-                <div class="col-md-2"><span id="rider1rn"></span></div>
-        </div>
-        <div class="row">
-                <div class="col-md-2"><b>Rider</b></div>
-                <div class="col-md-8"><span id="rider2"></span></div>
-                <div class="col-md-2"><span id="rider2rn"></span></div>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
-                <div class="row">
-                    <div class="col-md-4">
-                        <h1>Chores</h1>
-                    </div>
-                    <div class="col-md-4">
-                        <h1>Notes</h1>
-                        <div id="notes">
-
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <h1>Calls</h1>
-                    </div>
-                </div>
-            </div>
-        </div>
+  <div class="container-fluid">
+    <div id="header" class="row">
+      <div class="col-md-9">
+      </div>
+      <div class="col-md-3 datetime">
+        <b><span id="date"></span></b><span id="time"></span>
+      </div>
     </div>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
-    <script type="text/javascript" src="public/whiteboard.js"></script>
+    <div class="row">
+      <div class="col-md-9">
+        <div class="row">
+          <div class="col-md-2"><b>Title</b></div>
+          <div class="col-md-6"><b>Name</b></div>
+          <div class="col-md-4"><b>900#</b></div>
+        </div>
+        <div class="row">
+          <div class="col-md-2"><b>Crew Chief</b></div>
+          <div class="col-md-6"><span id="cc"></span></div>
+          <div class="col-md-4"><span id="ccrn"></span></div>
+        </div>
+        <div class="row">
+          <div class="col-md-2"><b>Driver</b></div>
+          <div class="col-md-6"><span id="driver"></span></div>
+          <div class="col-md-4"><span id="driverrn"></span></div>
+        </div>
+        <div class="row">
+          <div class="col-md-2"><b>Rider</b></div>
+          <div class="col-md-6"><span id="rider1"></span></div>
+          <div class="col-md-4"><span id="rider1rn"></span></div>
+        </div>
+        <div class="row">
+          <div class="col-md-2"><b>Rider</b></div>
+          <div class="col-md-6"><span id="rider2"></span></div>
+          <div class="col-md-4"><span id="rider2rn"></span></div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="row">
+              <div class="col-md-4">
+                <h1>Chores</h1>
+              </div>
+              <div class="col-md-4">
+                <h1>Notes</h1>
+                <div id="notes">
+
+                </div>
+              </div>
+              <div class="col-md-4">
+                <h1>Calls</h1>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3">
+
+      </div>
+    </div>
+  </div>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+  <script type="text/javascript" src="public/whiteboard.js"></script>
 </body>
 </html>

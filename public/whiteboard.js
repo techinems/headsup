@@ -36,7 +36,8 @@ async function updateNotes() {
 }
 function updateDate() {
     const todays_date = moment();
-    document.querySelector('#date').innerHTML = todays_date.format('MM/DD/YYYY');
+    document.querySelector('#date').innerHTML =  todays_date.format('D MMM YY');
+    document.querySelector('#time').innerHTML = todays_date.format('H:mm');
 }
 
 updateCrew();
@@ -44,7 +45,10 @@ updateDate();
 updateNotes();
 
 setInterval(() => {
-    updateDate();
     updateCrew();
     updateNotes();
 }, 60000);
+
+setInterval(() => {
+    updateDate();
+}, 2000);
