@@ -1,13 +1,13 @@
 async function getNotes() {
-    const response = await fetch(`/notes`);
+    const response = await fetch('/notes');
     const notes = (await response.json()).data;
     for (const note of notes) {
         const span = document.createElement('span');
         const paragraph = document.createElement('p');
         const button = document.createElement('button');
-        button.className = "btn-danger";
-        button.setAttribute("onclick", `deleteNote(${note.id})`);
-        button.textContent = "X";
+        button.className = 'btn-danger';
+        button.setAttribute('onclick', `deleteNote(${note.id})`);
+        button.textContent = 'X';
         paragraph.textContent = note.note;
         span.appendChild(paragraph);
         span.appendChild(button);
@@ -15,8 +15,9 @@ async function getNotes() {
     }
 }
 
+// eslint-disable-next-line
 function createNote() {
-    const note = document.querySelector("#new-notes").value;
+    const note = document.querySelector('#new-notes').value;
     fetch('/note/create', {
         method: 'POST',
         headers: {
@@ -27,6 +28,7 @@ function createNote() {
     });
 }
 
+// eslint-disable-next-line
 function deleteNote(note_id) {
     fetch('/note/delete', {
         method: 'POST',
@@ -36,7 +38,7 @@ function deleteNote(note_id) {
         redirect: 'follow',
         body: JSON.stringify({ note: note_id })
     });
-    document.querySelector("#notes").innerHTML = "";
+    document.querySelector('#notes').innerHTML = '';
     getNotes();
 }
 
