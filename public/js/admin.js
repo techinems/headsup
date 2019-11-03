@@ -44,7 +44,7 @@ async function deleteNote(note_id) {
 }
 
 async function generateCategoryDropdown() {
-    const response = await fetch('/public/call-categories.json');
+    const response = await fetch('/public/js/call-categories.json');
     const categories = await response.json();
     for (const category of categories) {
         const option = document.createElement('option');
