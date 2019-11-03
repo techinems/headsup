@@ -1,0 +1,17 @@
+#header {
+  background-color: #333333;
+  font-size: 30px;
+  color: white;
+  padding: 10px 0;
+  margin-bottom: 15px;
+
+  #patch {
+    height: 48px;
+  }
+}
+
+#notes {
+  .no-current-notes {
+    color: #888;
+  }
+}

@@ -1,23 +1,32 @@
 async function getNotes() {
     const response = await fetch('/notes');
     const notes = (await response.json()).data;
-    for (const note of notes) {
-        const span = document.createElement('span');
-        const paragraph = document.createElement('p');
-        const button = document.createElement('button');
-        button.className = 'btn-danger';
-        button.setAttribute('onclick', `deleteNote(${note.id})`);
-        button.textContent = 'X';
-        paragraph.textContent = note.note;
-        span.appendChild(paragraph);
-        span.appendChild(button);
-        document.querySelector('#notes').appendChild(span);
+    let html = '';
+    if (notes.length !== 0) {
+        for (const {id, note} of notes) {
+            const currentHtml = `
+        <div class="form-group">
+        <button
+        class="btn btn-sm btn-outline-danger"
+        id="note${id}"
+        onclick="deleteNote(${id})">
+        <i class="fa fa-times" aria-hidden="true"></i> Delete
+        </button>
+        <label for="note${id}">${note}</label>
+        </div>
+        `;
+            html += currentHtml;
+        }
     }
+    else {
+        html = '<div class="no-current-notes">There are no current notes!</div>';
+    }
+    document.querySelector('#notes').innerHTML = html;
 }
 
 // eslint-disable-next-line
 function createNote() {
-    const note = document.querySelector('#new-notes').value;
+    const note = document.querySelector('#add-a-note').value;
     fetch('/note/create', {
         method: 'POST',
         headers: {
