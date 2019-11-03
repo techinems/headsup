@@ -12,7 +12,7 @@ function updateCrew(crew_response) {
         crew.rider2rn = crew.rider2rn == 0 ? rider_radio_nums.pop() : crew.rider2rn;
         document.querySelector('#cc').innerHTML = crew.cc;
         document.querySelector('#ccrn').innerHTML = crew.ccrn;
-        // document.querySelector('#driver').innerHTML = crew.driver;
+        document.querySelector('#driver').innerHTML = crew.driver;
         document.querySelector('#driverrn').innerHTML = crew.driverrn;
         document.querySelector('#rider1').innerHTML = crew.rider1;
         document.querySelector('#rider1rn').innerHTML = crew.rider1rn;
@@ -34,7 +34,8 @@ function updateNotes(note_response) {
 }
 
 function updateCallCount(call_response) {
-    console.log(call_response.call_count);
+    document.querySelector('#call-count').innerHTML = 
+        `<b>Total: </b> ${call_response.call_count}`;
 }
 
 function updateDate() {
