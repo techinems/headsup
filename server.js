@@ -29,7 +29,7 @@ app.use('/public', express.static(path.join(__dirname, 'public')));
 
 app.get('/', (req, res) => {
     if (WEBSITE_ACCESS_TOKEN !== req.query.token) {
-        res.redirect('https://www.rpiambulance.com');
+        res.status(403);
     } else {
         res.sendFile(path.join(__dirname, 'public/index.html'));
     }
@@ -37,7 +37,7 @@ app.get('/', (req, res) => {
 
 app.get('/admin', (req, res) => {
     if (WEBSITE_ACCESS_TOKEN !== req.query.token) {
-        res.redirect('https://www.rpiambulance.com');
+        res.status(403);
     } else {
         res.sendFile(path.join(__dirname, 'public/admin.html'));
     }

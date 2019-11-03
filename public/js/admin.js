@@ -26,11 +26,12 @@ function createNote() {
         redirect: 'follow',
         body: JSON.stringify({ note })
     });
+    window.location.reload();
 }
 
 // eslint-disable-next-line
-function deleteNote(note_id) {
-    fetch('/note/delete', {
+async function deleteNote(note_id) {
+    await fetch('/note/delete', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -69,6 +70,7 @@ async function addCall() {
         redirect: 'follow',
         body: JSON.stringify(call_data)
     });
+    window.location.reload();
 }
 
 getNotes();

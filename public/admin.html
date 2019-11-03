@@ -18,18 +18,18 @@
         </div>
         <div class="row">
             <div class="col">
-                <form onsubmit="createNote()">
+                <formS>
                     <div class="form-group">
                         <div class="form-group">
                             <label for="new-notes">Note</label>
                             <textarea class="form-control" id="new-notes" rows="3" placeholder="Write your note here"></textarea>
                         </div>
-                        <button class="btn-success" type="submit">Create Note</button>
+                        <button class="btn-success" type="button" onclick="createNote()">Create Note</button>
                     </div>
                 </form>
             </div>
             <div class="col">
-                <form onsubmit="addCall()">
+                <form>
                     <div class="form-group">
                         <label for="prid">PRID</label>
                         <input type="number" id="prid" required></input>
@@ -58,7 +58,7 @@
                             <option value="S">Standby</option>
                         </select>
                     </div>
-                    <button class="btn-danger" type="submit">Register Call</button>
+                    <button class="btn-danger" type="button" onclick="addCall()">Register Call</button>
                 </form>
             </div>
         </div>
