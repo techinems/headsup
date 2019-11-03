@@ -43,6 +43,22 @@ function updateDate() {
     document.querySelector('#time').innerHTML = todays_date.format('HH:mm');
 }
 
+function updateChores(chore_list) {
+    const chore_div = document.querySelector('#chores');
+    chore_div.innerHTML = '';
+    if (chore_list.length === 0) {
+        chore_div.innerHTML = '<span>No chores tonight!</span>';
+    } else {
+        const ul = document.createElement('ul');
+        for (const chore of chore_list) {
+            const li = document.createElement('li');
+            li.innerText = chore;
+            ul.appendChild(li);
+        }
+        chore_div.appendChild(ul);
+    }
+}
+
 updateDate();
 
 const socket = io.connect();
@@ -56,6 +72,10 @@ socket.on('crews', (crew_response) => {
 
 socket.on('calls', (call_response) => {
     updateCallCount(call_response);
+});
+
+socket.on('chores', (chore_response) => {
+    updateChores(chore_response);
 });
 
 setInterval(() => {

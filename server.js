@@ -29,7 +29,7 @@ app.use('/public', express.static(path.join(__dirname, 'public')));
 
 app.get('/', (req, res) => {
     if (WEBSITE_ACCESS_TOKEN !== req.query.token) {
-        res.status(403);
+        res.sendStatus(403);
     } else {
         res.sendFile(path.join(__dirname, 'public/index.html'));
     }
@@ -37,7 +37,7 @@ app.get('/', (req, res) => {
 
 app.get('/admin', (req, res) => {
     if (WEBSITE_ACCESS_TOKEN !== req.query.token) {
-        res.status(403);
+        res.sendStatus(403);
     } else {
         res.sendFile(path.join(__dirname, 'public/admin.html'));
     }
@@ -79,6 +79,7 @@ app.post('/note/delete', async (req, res) => {
 
 app.post('/chores', (req, res) => {
     console.log(req.body);
+    io.emit('chores', req.body);
     res.send({success: true});
 });
 
