@@ -33,14 +33,13 @@ function updateNotes(note_response) {
     }
 }
 
-function updateCallCount(call_response) {
-    document.querySelector('#call-count').innerHTML = 
-        `<b>Total: </b> ${call_response.call_count}`;
+function updateCallCount({call_count}) {
+    document.querySelector('#total-count').innerHTML = call_count;
 }
 
 function updateDate() {
     const todays_date = moment();
-    document.querySelector('#date').innerHTML =  todays_date.format('D MMM YY');
+    document.querySelector('#date').innerHTML = todays_date.format('D MMM YY');
     document.querySelector('#time').innerHTML = todays_date.format('HH:mm');
 }
 
@@ -56,7 +55,7 @@ socket.on('crews', (crew_response) => {
 });
 
 socket.on('calls', (call_response) => {
-    updateCallCount(call_response); 
+    updateCallCount(call_response);
 });
 
 setInterval(() => {
