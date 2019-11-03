@@ -24,12 +24,16 @@ body {
   color: #ddd;
 }
 
+.section {
+  margin-top: 15px;
+}
+
 .section-heading {
   text-transform: uppercase;
   font-size: 30px;
   color: #444;
-  margin-top: 10px;
   margin-bottom: 10px;
+  line-height: 1;
 }
 
 #schedule {
@@ -87,5 +91,11 @@ body {
 }
 
 #call-volume {
-  border-left: 2px solid black;
+  border-left: 1px solid rgba(0,0,0,.1);
+  line-height: 1;
+
+  #total-count {
+    text-align: center;
+    font-size: 180px;
+  }
 }
