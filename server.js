@@ -20,6 +20,7 @@ const pool = mariadb.createPool({
 
 // Initialize express app
 const PORT = process.env.PORT || 8080;
+const WEBSITE_ACCESS_TOKEN = process.env.WEBSITE_ACCESS_TOKEN;
 
 // app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -27,11 +28,19 @@ app.use(bodyParser.json());
 app.use('/public', express.static(path.join(__dirname, 'public')));
 
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public/index.html'));
+    if (WEBSITE_ACCESS_TOKEN !== req.query.token) {
+        res.redirect('https://www.rpiambulance.com');
+    } else {
+        res.sendFile(path.join(__dirname, 'public/index.html'));
+    }
 });
 
 app.get('/admin', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public/admin.html'));
+    if (WEBSITE_ACCESS_TOKEN !== req.query.token) {
+        res.redirect('https://www.rpiambulance.com');
+    } else {
+        res.sendFile(path.join(__dirname, 'public/admin.html'));
+    }
 });
 
 app.get('/crew', async (req, res) => {
@@ -66,6 +75,10 @@ app.post('/note/delete', async (req, res) => {
     const response_data = await notes.deleteNote(pool, req.body.note);
     io.emit('notes', await notes.getNotes(pool));
     res.send(response_data);
+});
+
+app.post('/chores', (req, res) => {
+    console.log(req.body);
 });
 
 io.on('connection', async () => {
