@@ -79,6 +79,7 @@ app.post('/note/delete', async (req, res) => {
 
 app.post('/chores', (req, res) => {
     console.log(req.body);
+    res.send({success: true});
 });
 
 io.on('connection', async () => {
