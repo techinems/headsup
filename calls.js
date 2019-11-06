@@ -24,9 +24,9 @@ async function getTotalCalls(pool) {
     try {
         conn = await pool.getConnection();
         await conn.query('USE headsup;');
-        const count = await conn.query('SELECT count(*) as call_count from calls;');
+        const count = await conn.query('SELECT count(*) as callCount from calls;');
         delete count['meta'];
-        return { success: true, call_count: count[0].call_count };
+        return { success: true, callCount: count[0].callCount };
     } catch (err) {
         console.error(err);
         return { success: false };
