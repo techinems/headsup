@@ -50,12 +50,13 @@ app.get('/crew', async (req, res) => {
 
 app.get('/notes', async (req, res) => {
     const response_data = await notes.getNotes(pool);
-    io.emit('notes', await notes.getNotes(pool));
+    io.emit('notes', response_data);
     res.send(response_data);
 });
 
 app.post('/call/create', async (req, res) => {
-    const response_data = await calls.createCall(pool, req.body);
+    await calls.createCall(pool, req.body);
+    const response_data = await calls.getTotalCalls();
     io.emit('calls', response_data);
     res.send(response_data);
 });
