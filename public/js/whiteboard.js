@@ -1,15 +1,15 @@
 /* global moment, io */
 
-function updateCrew(crew_response) {
-    let crew = crew_response;
+function updateCrew(crewResponse) {
+    let crew = crewResponse;
     if (!crew.success) {
         console.error('Failed to fetch!');
     } else {
         crew = crew.data[0];
-        const rider_radio_nums = [993, 992];
+        const riderRadioNums = [993, 992];
         // Sets the rider's radionums to 992 and 993 if they don't have one
-        crew.rider1rn = crew.rider1rn == 0 ? rider_radio_nums.pop() : crew.rider1rn;
-        crew.rider2rn = crew.rider2rn == 0 ? rider_radio_nums.pop() : crew.rider2rn;
+        crew.rider1rn = crew.rider1rn == 0 ? riderRadioNums.pop() : crew.rider1rn;
+        crew.rider2rn = crew.rider2rn == 0 ? riderRadioNums.pop() : crew.rider2rn;
         document.querySelector('#cc').innerHTML = crew.cc;
         document.querySelector('#cc-rn').innerHTML = crew.ccrn;
         document.querySelector('#driver').innerHTML = crew.driver;
@@ -21,9 +21,9 @@ function updateCrew(crew_response) {
     }
 }
 
-function updateNotes(note_response) {
+function updateNotes(noteResponse) {
     document.querySelector('#notes').innerHTML = '';
-    const notes = note_response.data;
+    const notes = noteResponse.data;
     for (const note of notes) {
         const span = document.createElement('span');
         const paragraph = document.createElement('p');
@@ -33,29 +33,49 @@ function updateNotes(note_response) {
     }
 }
 
-function updateCallCount({call_count}) {
-    document.querySelector('#total-count').innerHTML = call_count;
+function updateCallCount({callCount}) {
+    document.querySelector('#total-count').innerHTML = callCount;
 }
 
 function updateDate() {
-    const todays_date = moment();
-    document.querySelector('#date').innerHTML = todays_date.format('D MMM YY');
-    document.querySelector('#time').innerHTML = todays_date.format('HH:mm');
+    const todaysDate = moment();
+    document.querySelector('#date').innerHTML = todaysDate.format('D MMM YY');
+    document.querySelector('#time').innerHTML = todaysDate.format('HH:mm');
+}
+
+function updateChores(choreList) {
+    const choreDiv = document.querySelector('#chores');
+    choreDiv.innerHTML = '';
+    if (choreList.length === 0) {
+        choreDiv.innerHTML = '<span>No chores tonight!</span>';
+    } else {
+        const ul = document.createElement('ul');
+        for (const chore of choreList) {
+            const li = document.createElement('li');
+            li.innerText = chore;
+            ul.appendChild(li);
+        }
+        choreDiv.appendChild(ul);
+    }
 }
 
 updateDate();
 
 const socket = io.connect();
-socket.on('notes', (note_response) => {
-    updateNotes(note_response);
+socket.on('notes', (noteResponse) => {
+    updateNotes(noteResponse);
 });
 
-socket.on('crews', (crew_response) => {
-    updateCrew(crew_response);
+socket.on('crews', (crewResponse) => {
+    updateCrew(crewResponse);
 });
 
-socket.on('calls', (call_response) => {
-    updateCallCount(call_response);
+socket.on('calls', (callResponse) => {
+    updateCallCount(callResponse);
+});
+
+socket.on('chores', (choreResponse) => {
+    updateChores(choreResponse);
 });
 
 setInterval(() => {
