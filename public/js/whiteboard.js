@@ -75,7 +75,7 @@ socket.on('calls', (callResponse) => {
 });
 
 socket.on('chores', (choreResponse) => {
-    updateChores(choreResponse);
+    updateChores(choreResponse.chores);
 });
 
 setInterval(() => {
