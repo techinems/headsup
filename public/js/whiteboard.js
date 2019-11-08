@@ -78,6 +78,11 @@ socket.on('chores', (choreResponse) => {
     updateChores(choreResponse.chores);
 });
 
+// Refreshes the page allowing us to update the UI without ever touching the tv
+socket.on('refresh', () => {
+    window.location.reload();
+});
+
 setInterval(() => {
     updateDate();
 }, 2000);

@@ -56,7 +56,7 @@ app.get('/notes', async (req, res) => {
 
 app.post('/call/create', async (req, res) => {
     await calls.createCall(pool, req.body);
-    const response_data = await calls.getTotalCalls();
+    const response_data = await calls.getTotalCalls(pool);
     io.emit('calls', response_data);
     res.send(response_data);
 });
@@ -94,4 +94,7 @@ setInterval(async () => {
     io.emit('crews', await crews.getCrew(pool));
 }, 60000);
 
-server.listen(PORT, () => console.log('Headsup is up!'));
+server.listen(PORT, () => {
+    console.log('Headsup is up!');
+    io.emit('refresh');
+});
