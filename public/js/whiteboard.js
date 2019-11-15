@@ -31,8 +31,8 @@ function updateNotes(noteResponse) {
     }
 }
 
-function updateCallCount({callCount}) {
-    document.querySelector('#total-count').innerHTML = callCount;
+function updateCallCount({data}) {
+    document.querySelector('#total-count').innerHTML = data;
 }
 
 function updateDate() {
@@ -77,10 +77,6 @@ socket.on('chores', (choreResponse) => {
 });
 
 // Refreshes the page allowing us to update the UI without ever touching the tv
-socket.on('refresh', () => {
-    window.location.reload();
-});
+socket.on('refresh', () => window.location.reload());
 
-setInterval(() => {
-    updateDate();
-}, 2000);
+setInterval(() => updateDate(), 2000);
