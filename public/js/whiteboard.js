@@ -25,11 +25,9 @@ function updateNotes(noteResponse) {
     document.querySelector('#notes').innerHTML = '';
     const notes = noteResponse.data;
     for (const note of notes) {
-        const span = document.createElement('span');
-        const paragraph = document.createElement('p');
-        paragraph.textContent = note.note;
-        span.appendChild(paragraph);
-        document.querySelector('#notes').appendChild(span);
+        const p = document.createElement('p');
+        p.textContent = note.note;
+        document.querySelector('#notes').appendChild(p);
     }
 }
 
