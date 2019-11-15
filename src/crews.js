@@ -7,10 +7,10 @@ const CREW_GET = `
         CONCAT(SUBSTRING(d.first_name, 1, 1), '. ', d.last_name) as driver,
         CONCAT(SUBSTRING(r1.first_name, 1, 1), '. ', r1.last_name) as rider1,
         CONCAT(SUBSTRING(r2.first_name, 1, 1), '. ', r2.last_name) as rider2,
-        c.ridernum as ccrn,
-        d.ridernum as driverrn,
-        r1.ridernum as rider1rn,
-        r2.ridernum as rider2rn
+        c.radionum as ccrn,
+        d.radionum as driverrn,
+        r1.radionum as rider1rn,
+        r2.radionum as rider2rn
     FROM
         (SELECT m.first_name, m.last_name, m.radionum, c.date FROM crews c, members m
             WHERE m.id = c.cc AND c.date = ?) as c,
