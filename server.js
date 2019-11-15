@@ -5,9 +5,9 @@ const mariadb = require('mariadb');
 const bodyParser = require('body-parser');
 const server = require('http').Server(app);
 const io = require('socket.io')(server);
-const notes = require('./notes.js');
-const crews = require('./crews.js');
-const calls = require('./calls.js');
+const notes = require('./src/notes.js');
+const crews = require('./src/crews.js');
+const calls = require('./src/calls.js');
 
 require('dotenv').config();
 

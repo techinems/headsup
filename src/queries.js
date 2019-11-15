@@ -1,3 +1,5 @@
+// TODO: delete this file once validating that the new query works.
+
 const moment = require('moment');
 
 function constructCrewQuery() {
