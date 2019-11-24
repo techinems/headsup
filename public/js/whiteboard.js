@@ -1,4 +1,9 @@
-/* global moment, io */
+/* global moment, io, SunCalc */
+
+const longitude = -73.675770;
+const latitude = 42.729270;
+// 30 minutes in milliseconds (60000 ms in 1 min)
+const thirtyMinutes = 60000 * 30;
 
 function updateCrew(crewResponse) {
     let crew = crewResponse;
@@ -39,6 +44,20 @@ function updateDate() {
     const todaysDate = moment();
     document.querySelector('#date').innerHTML = todaysDate.format('D MMM YY');
     document.querySelector('#time').innerHTML = todaysDate.format('HH:mm');
+
+    const times = SunCalc.getTimes(new Date(), latitude, longitude);
+    const now = Date.now();
+    if (
+        (times.sunrise.getTime() + thirtyMinutes) <= now
+        && now < (times.sunset.getTime() + thirtyMinutes)
+    ) {
+        document.getElementById('stylesheet-light').media = '';
+        document.getElementById('stylesheet-dark').media = 'none';
+    }
+    else {
+        document.getElementById('stylesheet-dark').media = '';
+        document.getElementById('stylesheet-light').media = 'none';
+    }
 }
 
 function updateChores(choreList) {
