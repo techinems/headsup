@@ -1,4 +1,7 @@
+/* global EmojiConvertor */
+
 async function getNotes() {
+    const emoji = new EmojiConvertor();
     const response = await fetch('/notes');
     const notes = (await response.json()).data;
     let html = '';
@@ -12,7 +15,7 @@ async function getNotes() {
         onclick="deleteNote(${id})">
         <i class="fa fa-times" aria-hidden="true"></i> Delete
         </button>
-        <label for="note${id}">${note}</label>
+        <label for="note${id}">${emoji.replace_colons(note)}</label>
         </div>
         `;
             html += currentHtml;
