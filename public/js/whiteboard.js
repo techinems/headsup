@@ -1,4 +1,4 @@
-/* global moment, io */
+/* global moment, io, EmojiConvertor */
 
 function updateCrew(crewResponse) {
     let crew = crewResponse;
@@ -22,12 +22,15 @@ function updateCrew(crewResponse) {
 }
 
 function updateNotes(noteResponse) {
+    let emoji = new EmojiConvertor();
     document.querySelector('#notes').innerHTML = '';
     const notes = noteResponse.data;
     for (const note of notes) {
-        const p = document.createElement('p');
-        p.textContent = note.note;
-        document.querySelector('#notes').appendChild(p);
+        const span = document.createElement('span');
+        const paragraph = document.createElement('p');
+        paragraph.textContent = emoji.replace_colons(note.note);
+        span.appendChild(paragraph);
+        document.querySelector('#notes').appendChild(span);
     }
 }
 
@@ -42,6 +45,7 @@ function updateDate() {
 }
 
 function updateChores(choreList) {
+    let emoji = new EmojiConvertor();
     const choreDiv = document.querySelector('#chores');
     choreDiv.innerHTML = '';
     if (choreList.length === 0) {
@@ -50,7 +54,7 @@ function updateChores(choreList) {
         const ul = document.createElement('ul');
         for (const chore of choreList) {
             const li = document.createElement('li');
-            li.innerText = chore;
+            li.innerText = emoji.replace_colons(chore);
             ul.appendChild(li);
         }
         choreDiv.appendChild(ul);
