@@ -23,6 +23,9 @@ function updateCrew(crewResponse) {
 
 function updateNotes(noteResponse) {
     let emoji = new EmojiConvertor();
+    emoji.init_env();
+    emoji.replace_mode = 'unified';
+    emoji.allow_native = true;
     document.querySelector('#notes').innerHTML = '';
     const notes = noteResponse.data;
     for (const note of notes) {
@@ -46,6 +49,9 @@ function updateDate() {
 
 function updateChores(choreList) {
     let emoji = new EmojiConvertor();
+    emoji.init_env();
+    emoji.replace_mode = 'unified';
+    emoji.allow_native = true;
     const choreDiv = document.querySelector('#chores');
     choreDiv.innerHTML = '';
     if (choreList.length === 0) {
