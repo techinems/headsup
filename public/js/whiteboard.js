@@ -47,6 +47,10 @@ function updateDate() {
 
     const times = SunCalc.getTimes(new Date(), latitude, longitude);
     const now = Date.now();
+    // if the current time falls between 30 minutes after sunrise and
+    // 30 minutes after sunset, then we use the light stylesheet, otherwise
+    // use the dark stylesheet. After updating the media attribute, all
+    // styles are re-applied on the page.
     if (
         (times.sunrise.getTime() + thirtyMinutes) <= now
         && now < (times.sunset.getTime() + thirtyMinutes)
