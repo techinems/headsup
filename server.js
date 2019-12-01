@@ -27,6 +27,10 @@ app.use(bodyParser.json());
 
 app.use('/public', express.static(path.join(__dirname, 'public')));
 
+app.get('/suncalc.js', (req, res) => {
+    res.sendFile(path.join(__dirname, 'node_modules', 'suncalc', 'suncalc.js'));
+});
+
 app.get('/', (req, res) => {
     if (WEBSITE_ACCESS_TOKEN !== req.query.token) {
         res.sendStatus(403);
