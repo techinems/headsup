@@ -1,8 +1,8 @@
-async function execQuery(pool, q, args = null, responseFunc = null) {
+async function execQuery(pool, q, args = null, responseFunc = null, db = 'headsup') {
     let conn;
     try {
         conn = await pool.getConnection();
-        await conn.query(`USE ${process.env.DB_NAME};`);
+        await conn.query(`USE ${db};`);
         const results = await (args != null ? conn.query(q, args) : conn.query(q));
         const response = { success: true };
         if (responseFunc != null) {
