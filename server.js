@@ -5,9 +5,9 @@ const mariadb = require('mariadb');
 const bodyParser = require('body-parser');
 const server = require('http').Server(app);
 const io = require('socket.io')(server);
-const notes = require('./notes.js');
-const crews = require('./crews.js');
-const calls = require('./calls.js');
+const notes = require('./src/notes.js');
+const crews = require('./src/crews.js');
+const calls = require('./src/calls.js');
 
 require('dotenv').config();
 
@@ -26,6 +26,10 @@ const WEBSITE_ACCESS_TOKEN = process.env.WEBSITE_ACCESS_TOKEN;
 app.use(bodyParser.json());
 
 app.use('/public', express.static(path.join(__dirname, 'public')));
+
+app.get('/suncalc.js', (req, res) => {
+    res.sendFile(path.join(__dirname, 'node_modules', 'suncalc', 'suncalc.js'));
+});
 
 app.get('/', (req, res) => {
     if (WEBSITE_ACCESS_TOKEN !== req.query.token) {

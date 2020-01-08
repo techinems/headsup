@@ -1,0 +1,120 @@
+body {
+  font-family: "Sarabun", sans-serif;
+  background-color: #111;
+  color: #aaa;
+}
+
+#header {
+  background-color: #080808;
+  font-size: 36px;
+  color: #888;
+  padding: 10px 0;
+
+  #patch {
+    height: 60px;
+  }
+
+  .datetime {
+    text-align: right;
+  }
+
+  #time {
+    margin-left: 30px;
+    color: #aaa;
+  }
+}
+
+
+.section {
+  margin-top: 15px;
+}
+
+.section-heading {
+  text-transform: uppercase;
+  font-size: 30px;
+  color: invert(#444);
+  margin-bottom: 10px;
+  line-height: 1;
+}
+
+#schedule {
+  div:not(.section-heading) {
+    padding: 0 15px;
+  }
+
+  .crew-member {
+    margin: 15px auto;
+    padding: 0;
+    padding-bottom: 15px;
+    padding-top: 5px;
+    border-bottom: 1px solid rgba(255,255,255,.1);
+
+    &:last-child {
+      border-bottom: 0;
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    .title {
+      display: block;
+      font-size: 30px;
+      color: #666;
+      text-transform: uppercase;
+      line-height: 1;
+    }
+
+    .name {
+      font-size: 60px;
+      line-height: 1;
+      font-weight: 600;
+    }
+
+    .rn {
+      margin-left: 30px;
+      font-size: 36px;
+      color: invert(#666);
+    }
+
+    .vacant {
+      text-transform: uppercase;
+      color: invert(#888);
+      font-size: 48px;
+
+      &::before {
+        content: "<";
+      }
+
+      &::after {
+        content: ">";
+      }
+    }
+  }
+}
+
+#call-volume {
+  border-left: 1px solid rgba(255,255,255,.1);
+  line-height: 1;
+
+  #total-count {
+    text-align: center;
+    font-size: 180px;
+  }
+}
+
+#chores li {
+  font-size: 36px;
+}
+
+#notes p {
+  font-size: 36px;
+  padding: 0;
+  padding-bottom: 15px;
+  padding-top: 5px;
+  border-bottom: 1px solid rgba(255,255,255,.1);
+
+  &:last-child {
+    border-bottom: 0;
+    margin-bottom: 0;
+    padding-bottom: 0;
+  }
+}
