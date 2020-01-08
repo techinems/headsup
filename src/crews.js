@@ -41,4 +41,4 @@ function buildDateArray() {
 exports.getCrew = pool => execQuery(pool, CREW_GET, buildDateArray(), results => {
     delete results['meta'];
     return results;
-}, 'ambulanc_web');
+}, process.env.CREWS_DB_NAME);
