@@ -25,9 +25,9 @@ async function getNotes() {
 }
 
 // eslint-disable-next-line
-function createNote() {
+async function createNote() {
     const note = document.querySelector('#add-a-note').value;
-    fetch('/note/create', {
+    await fetch('/note/create', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -71,7 +71,7 @@ async function addCall() {
     const category = document.querySelector('#category').value;
     const response = document.querySelector('#response').value;
     const call_data = { prid, cc, driver, category, response };
-    fetch('/call/create', {
+    await fetch('/call/create', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
