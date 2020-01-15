@@ -92,7 +92,7 @@ app.post('/mishap/create', async (req, res) => {
     console.log('MISHAP!');
     await mishap.createMishap(pool, req.body.mishap);
     const response_data = await calls.getTotalMishaps(pool);
-    io.emit('mishaps', response_data)
+    io.emit('mishaps', response_data);
     res.send(response_data);
 });
 
