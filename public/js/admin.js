@@ -52,6 +52,20 @@ async function deleteNote(note_id) {
     getNotes();
 }
 
+// eslint-disable-next-line
+function createMishap() {
+    const mishap = document.querySelector('#add-a-mishap').value;
+    fetch('/mishap/create', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        redirect: 'follow',
+        body: JSON.stringify({ mishap })
+    });
+    window.location.reload();
+}
+
 async function generateCategoryDropdown() {
     const response = await fetch('/public/js/call-categories.json');
     const categories = await response.json();
