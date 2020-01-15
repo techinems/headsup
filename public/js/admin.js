@@ -27,27 +27,13 @@ async function getNotes() {
 // eslint-disable-next-line
 async function createNote() {
     const note = document.querySelector('#add-a-note').value;
-    await fetch('/note/create', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        redirect: 'follow',
-        body: JSON.stringify({ note })
-    });
+    await postServer('/note/create',note);
     window.location.reload();
 }
 
 // eslint-disable-next-line
 async function deleteNote(note_id) {
-    await fetch('/note/delete', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        redirect: 'follow',
-        body: JSON.stringify({ note: note_id })
-    });
+    await postServer('/note/delete', {note: note_id});
     document.querySelector('#notes').innerHTML = '';
     getNotes();
 }
@@ -71,15 +57,19 @@ async function addCall() {
     const category = document.querySelector('#category').value;
     const response = document.querySelector('#response').value;
     const call_data = { prid, cc, driver, category, response };
-    await fetch('/call/create', {
+    await postServer('/call/create',call_data);
+    window.location.reload();
+}
+
+async function postServer(endpoint,body) {
+    await fetch(endpoint, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
         redirect: 'follow',
-        body: JSON.stringify(call_data)
+        body: JSON.stringify(body)
     });
-    window.location.reload();
 }
 
 getNotes();
