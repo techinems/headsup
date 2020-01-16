@@ -1,5 +1,6 @@
 async function getNotes() {
     const response = await fetch('/notes');
+    checkResult(response);
     const notes = (await response.json()).data;
     let html = '';
     if (notes.length !== 0) {
@@ -27,19 +28,21 @@ async function getNotes() {
 // eslint-disable-next-line
 async function createNote() {
     const note = document.querySelector('#add-a-note').value;
-    await postServer('/note/create',note);
-    window.location.reload();
+    if (note === '') return;
+    await postToServer('/note/create', {note: note});
+    document.querySelector('#add-a-note').value = '';
+    await getNotes();
 }
 
 // eslint-disable-next-line
 async function deleteNote(note_id) {
-    await postServer('/note/delete', {note: note_id});
-    document.querySelector('#notes').innerHTML = '';
-    getNotes();
+    await postToServer('/note/delete', {note: note_id});
+    await getNotes();
 }
 
 async function generateCategoryDropdown() {
     const response = await fetch('/public/js/call-categories.json');
+    checkResult(response);
     const categories = await response.json();
     for (const category of categories) {
         const option = document.createElement('option');
@@ -57,12 +60,16 @@ async function addCall() {
     const category = document.querySelector('#category').value;
     const response = document.querySelector('#response').value;
     const call_data = { prid, cc, driver, category, response };
-    await postServer('/call/create',call_data);
-    window.location.reload();
+    await postToServer('/call/create',call_data);
+    document.querySelector('#prid').value = '';
+    document.querySelector('#tic').value = '';
+    document.querySelector('#driver').value = '';
+    document.querySelector('#category').value = '';
+    document.querySelector('#response').value = '';
 }
 
-async function postServer(endpoint,body) {
-    await fetch(endpoint, {
+async function postToServer(endpoint, body) {
+    const response = await fetch(endpoint, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -70,6 +77,13 @@ async function postServer(endpoint,body) {
         redirect: 'follow',
         body: JSON.stringify(body)
     });
+    checkResult(response);
+}
+
+function checkResult(response) {
+    if (!response.ok) {
+        throw response.statusText;
+    }
 }
 
 getNotes();
