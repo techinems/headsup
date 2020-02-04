@@ -41,7 +41,6 @@ function updateCallCount({data}) {
 }
 
 function updateMishapCount({data}) {
-    console.log(data);
     document.querySelector('#total-mishaps').innerHTML = data;
 }
 

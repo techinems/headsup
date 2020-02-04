@@ -31,7 +31,6 @@ async function createNote() {
     if (note === '') return;
     await postToServer('/note/create', {note: note});
     document.querySelector('#add-a-note').value = '';
-    await getNotes();
 }
 
 // eslint-disable-next-line
@@ -41,17 +40,11 @@ async function deleteNote(note_id) {
 }
 
 // eslint-disable-next-line
-function createMishap() {
+async function createMishap() {
     const mishap = document.querySelector('#add-a-mishap').value;
-    fetch('/mishap/create', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        redirect: 'follow',
-        body: JSON.stringify({ mishap })
-    });
-    window.location.reload();
+    if (mishap === '') return;
+    await postToServer('/mishap/create', {mishap: mishap});
+    document.querySelector('#add-a-mishap').value = '';
 }
 
 async function generateCategoryDropdown() {
