@@ -26,11 +26,26 @@ async function getNotes() {
 }
 
 // eslint-disable-next-line
+async function createItem(item) {
+    if (item == 'note') {
+        const note = document.querySelector('#add-a-note').value;
+        if (note === '') return;
+        await postToServer('/note/create', {note: note});
+        document.querySelector('#add-a-note').value = '';
+    } else if (item == 'mishap') {
+        const mishap = document.querySelector('#add-a-mishap').value;
+        if (mishap === '') return;
+        await postToServer('/mishap/create', {mishap: mishap});
+        document.querySelector('#add-a-mishap').value = '';
+    } else {
+        console.log('Unknown');
+    }
+}
+
+// eslint-disable-next-line
 async function createNote() {
-    const note = document.querySelector('#add-a-note').value;
-    if (note === '') return;
-    await postToServer('/note/create', {note: note});
-    document.querySelector('#add-a-note').value = '';
+    await createItem('note');
+    await getNotes();
 }
 
 // eslint-disable-next-line
@@ -41,10 +56,7 @@ async function deleteNote(note_id) {
 
 // eslint-disable-next-line
 async function createMishap() {
-    const mishap = document.querySelector('#add-a-mishap').value;
-    if (mishap === '') return;
-    await postToServer('/mishap/create', {mishap: mishap});
-    document.querySelector('#add-a-mishap').value = '';
+    await createItem('mishap');
 }
 
 async function generateCategoryDropdown() {
