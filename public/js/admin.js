@@ -26,20 +26,19 @@ async function getNotes() {
 }
 
 // eslint-disable-next-line
-async function createItem(item) {
-    if (item == 'note') {
-        const note = document.querySelector('#add-a-note').value;
-        if (note === '') return;
-        await postToServer('/note/create', {note: note});
-        document.querySelector('#add-a-note').value = '';
-    } else if (item == 'mishap') {
-        const mishap = document.querySelector('#add-a-mishap').value;
-        if (mishap === '') return;
-        await postToServer('/mishap/create', {mishap: mishap});
-        document.querySelector('#add-a-mishap').value = '';
-    } else {
-        console.log('Unknown');
+async function createItem(category) {
+    if (category != 'note' && category != 'mishap') {
+        console.log('Unknown item');
+        return;
     }
+    const item = document.querySelector(`#add-a-${category}`).value;
+    if (item === '') return;
+    if (category == 'note') {
+        await postToServer('/note/create', {note: item});
+    } else if (category == 'mishap') {
+        await postToServer('/mishap/create', {mishap: item});
+    }
+    document.querySelector(`#add-a-${category}`).value = '';
 }
 
 // eslint-disable-next-line
