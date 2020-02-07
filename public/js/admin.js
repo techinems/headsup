@@ -40,19 +40,19 @@ async function createItem(category) {
     document.querySelector(`#add-a-${category}`).value = '';
 }
 
-// eslint-disable-next-line
+// eslint-disable-next-line no-unused-vars
 async function createNote() {
     await createItem('note');
     await getNotes();
 }
 
-// eslint-disable-next-line
+// eslint-disable-next-line no-unused-vars
 async function deleteNote(note_id) {
     await postToServer('/note/delete', {note: note_id});
     await getNotes();
 }
 
-// eslint-disable-next-line
+// eslint-disable-next-line no-unused-vars
 async function createMishap() {
     await createItem('mishap');
 }
@@ -69,7 +69,7 @@ async function generateCategoryDropdown() {
     }
 }
 
-// eslint-disable-next-line
+// eslint-disable-next-line no-unused-vars
 async function addCall() {
     const prid = document.querySelector('#prid').value;
     const cc = document.querySelector('#tic').value;
