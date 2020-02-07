@@ -25,7 +25,6 @@ async function getNotes() {
     document.querySelector('#notes').innerHTML = html;
 }
 
-// eslint-disable-next-line
 async function createItem(category) {
     if (category != 'note' && category != 'mishap') {
         console.log('Unknown item');

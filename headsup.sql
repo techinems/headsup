@@ -8,7 +8,7 @@ CREATE TABLE notes (
     PRIMARY KEY(id)
 );
 
-CREATE TABLE dispatchMishaps (
+CREATE TABLE dispatch_mishaps (
     id  int NOT NULL AUTO_INCREMENT,
     date date NOT NULL,
     mishap text NOT NULL,

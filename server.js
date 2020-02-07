@@ -66,11 +66,6 @@ app.post('/call/create', async (req, res) => {
     res.send(response_data);
 });
 
-app.get('/calls', async (req, res) => {
-    const response_data = await calls.getTotalCalls(pool);
-    res.send(response_data);
-});
-
 app.post('/note/create', async (req, res) => {
     const response_data = await notes.createNote(pool, req.body.note);
     io.emit('notes', await notes.getNotes(pool));
@@ -80,11 +75,6 @@ app.post('/note/create', async (req, res) => {
 app.post('/note/delete', async (req, res) => {
     const response_data = await notes.deleteNote(pool, req.body.note);
     io.emit('notes', await notes.getNotes(pool));
-    res.send(response_data);
-});
-
-app.get('/calls', async (req, res) => {
-    const response_data = await calls.getTotalCalls(pool);
     res.send(response_data);
 });
 
