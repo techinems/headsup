@@ -8,6 +8,13 @@ CREATE TABLE notes (
     PRIMARY KEY(id)
 );
 
+CREATE TABLE dispatch_mishaps (
+    id  int NOT NULL AUTO_INCREMENT,
+    date date NOT NULL,
+    mishap text NOT NULL,
+    PRIMARY KEY(id)
+);
+
 CREATE TABLE calls (
     prid int NOT NULL,
     cc varchar(255) NOT NULL,

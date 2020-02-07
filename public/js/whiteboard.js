@@ -40,6 +40,10 @@ function updateCallCount({data}) {
     document.querySelector('#total-count').innerHTML = data;
 }
 
+function updateMishapCount({data}) {
+    document.querySelector('#total-mishaps').innerHTML = data;
+}
+
 function updateDate() {
     const todaysDate = moment();
     document.querySelector('#date').innerHTML = todaysDate.format('D MMM YY');
@@ -93,6 +97,10 @@ socket.on('crews', (crewResponse) => {
 
 socket.on('calls', (callResponse) => {
     updateCallCount(callResponse);
+});
+
+socket.on('mishaps', (mishapResponse) => {
+    updateMishapCount(mishapResponse);
 });
 
 socket.on('chores', (choreResponse) => {

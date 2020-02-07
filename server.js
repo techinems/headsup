@@ -6,6 +6,7 @@ const bodyParser = require('body-parser');
 const server = require('http').Server(app);
 const io = require('socket.io')(server);
 const notes = require('./src/notes.js');
+const mishap = require('./src/mishap.js');
 const crews = require('./src/crews.js');
 const calls = require('./src/calls.js');
 
@@ -65,11 +66,6 @@ app.post('/call/create', async (req, res) => {
     res.send(response_data);
 });
 
-app.get('/calls', async (req, res) => {
-    const response_data = await calls.getTotalCalls(pool);
-    res.send(response_data);
-});
-
 app.post('/note/create', async (req, res) => {
     const response_data = await notes.createNote(pool, req.body.note);
     io.emit('notes', await notes.getNotes(pool));
@@ -82,8 +78,19 @@ app.post('/note/delete', async (req, res) => {
     res.send(response_data);
 });
 
+app.post('/mishap/create', async (req, res) => {
+    await mishap.createMishap(pool, req.body.mishap);
+    const response_data = await mishap.getTotalMishaps(pool);
+    io.emit('mishaps', response_data);
+    res.send(response_data);
+});
+
+app.get('/mishap', async (req, res) => {
+    const response_data = await mishap.getTotalMishaps(pool);
+    res.send(response_data);
+});
+
 app.post('/chores', (req, res) => {
-    console.log(req.body);
     io.emit('chores', req.body);
     res.send({success: true});
 });
@@ -92,6 +99,7 @@ io.on('connection', async () => {
     io.emit('notes', await notes.getNotes(pool));
     io.emit('crews', await crews.getCrew(pool));
     io.emit('calls', await calls.getTotalCalls(pool));
+    io.emit('mishaps', await mishap.getTotalMishaps(pool));
 });
 
 setInterval(async () => {

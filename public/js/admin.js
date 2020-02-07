@@ -25,19 +25,36 @@ async function getNotes() {
     document.querySelector('#notes').innerHTML = html;
 }
 
-// eslint-disable-next-line
+async function createItem(category) {
+    if (category != 'note' && category != 'mishap') {
+        console.log('Unknown item');
+        return;
+    }
+    const item = document.querySelector(`#add-a-${category}`).value;
+    if (item === '') return;
+    if (category == 'note') {
+        await postToServer('/note/create', {note: item});
+    } else if (category == 'mishap') {
+        await postToServer('/mishap/create', {mishap: item});
+    }
+    document.querySelector(`#add-a-${category}`).value = '';
+}
+
+// eslint-disable-next-line no-unused-vars
 async function createNote() {
-    const note = document.querySelector('#add-a-note').value;
-    if (note === '') return;
-    await postToServer('/note/create', {note: note});
-    document.querySelector('#add-a-note').value = '';
+    await createItem('note');
     await getNotes();
 }
 
-// eslint-disable-next-line
+// eslint-disable-next-line no-unused-vars
 async function deleteNote(note_id) {
     await postToServer('/note/delete', {note: note_id});
     await getNotes();
+}
+
+// eslint-disable-next-line no-unused-vars
+async function createMishap() {
+    await createItem('mishap');
 }
 
 async function generateCategoryDropdown() {
@@ -52,7 +69,7 @@ async function generateCategoryDropdown() {
     }
 }
 
-// eslint-disable-next-line
+// eslint-disable-next-line no-unused-vars
 async function addCall() {
     const prid = document.querySelector('#prid').value;
     const cc = document.querySelector('#tic').value;
