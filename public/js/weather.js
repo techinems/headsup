@@ -20,9 +20,8 @@ function getDate(m, d) {
 // This function will show the weather data for the given location
 // In this case, it's RPI Ambulance HQ in Troy, NY
 function showPosition() {
-    var dat2 = "public/forecast.json";
     var x = document.getElementById('today');
-    //var dat2 = "https://api.openweathermap.org/data/2.5/forecast?lat=" + latitude + "&lon=" + longitude + "&appid=" + api;
+    var dat2 = "https://api.openweathermap.org/data/2.5/forecast?lat=" + latitude + "&lon=" + longitude + "&appid=" + api;
     $.getJSON(dat2, function (data) {
         alldata = data;
     }).then(function () {
