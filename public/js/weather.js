@@ -1,8 +1,8 @@
 // Set API key, longitude, and latitude
-const api = "232f1a91a4893327ac3317c3786ac2be";
+let api = "232f1a91a4893327ac3317c3786ac2be";
 
 // Set a static array of month names.
-var monthNames = [
+let monthNames = [
 	'January', 'February', 'March', 'April', 'May', 'June',
   'July', 'August', 'September', 'October', 'November', 'December'
 ];
@@ -17,27 +17,45 @@ function getDate(m, d) {
     return monthNames[m] + ' ' + d;
 }
 
+
+function getJson(url){
+    let request = new XMLHttpRequest();
+request.open('GET', url, true);
+
+request.onload = function() {
+  if (this.status >= 200 && this.status < 400) {
+    // Success!
+    let data = JSON.parse(this.response);
+  } else {
+    console.log("The weather server returned an error!");
+  }
+};
+
+request.onerror = function() {
+  console.log("Invalid API request to the weather server!");
+};
+
+request.send();
+}
+
 // This function will show the weather data for the given location
 // In this case, it's RPI Ambulance HQ in Troy, NY
 function showPosition() {
-    var x = document.getElementById('today');
-    var dat2 = "https://api.openweathermap.org/data/2.5/forecast?lat=" + latitude + "&lon=" + longitude + "&appid=" + api;
-    $.getJSON(dat2, function (data) {
-        alldata = data;
-    }).then(function () {
-
-        for(var i = 0; i < 4; i++){
+    let x = document.getElementById('today');
+    let dat2 = "https://api.openweathermap.org/data/2.5/forecast?lat=" + latitude + "&lon=" + longitude + "&appid=" + api;
+    
+    let alldata = getJson(dat2);
+        for(let i = 0; i < 4; i++){
             // Weather data is given in 3 hour increments, but we're only interested in the weather each day.
-            var num = i * 8;
-            
+            let num = i * 8;
             // This will give you the JSON object for each day.
-            var dat = alldata.list[num];
+            let dat = alldata.list[num];
 
             // This sets the source for the weather icons.
-            var imgsrc = "public/img/weather icons/" + dat.weather[0].icon + ".svg"
-            var temp = kToF(dat.main.feels_like);
-            var date = new Date();
-            var desc = dat.weather[0].description;
+            let imgsrc = "public/img/weather icons/" + dat.weather[0].icon + ".svg"
+            let temp = kToF(dat.main.feels_like);
+            let date = new Date();
+            let desc = dat.weather[0].description;
             desc = desc.charAt(0).toUpperCase() + desc.slice(1);
             // Check to see if we are about to display today or tomorrow. If not,
             // print out the date.
@@ -65,6 +83,5 @@ function showPosition() {
             <br/>
             </div>`;
         }
-    });
 }
 $(document).ready(showPosition);
