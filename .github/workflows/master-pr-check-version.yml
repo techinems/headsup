@@ -11,8 +11,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v1
-
-    - run: git pull origin/master
       
     - name: Check if version changed
       uses: rpiambulance/action-pr-version-check@master
