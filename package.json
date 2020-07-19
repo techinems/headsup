@@ -1,6 +1,6 @@
 {
   "name": "headsup",
-  "version": "1.2.4",
+  "version": "1.2.5",
   "description": "RPIA's digital whiteboard system",
   "main": "server.js",
   "scripts": {
