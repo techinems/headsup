@@ -10,7 +10,7 @@ jobs:
   master-pr-check-version:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v1
 
     - name: Check if version changed
       uses: rpiambulance/action-pr-version-check@master
