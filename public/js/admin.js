@@ -1,5 +1,6 @@
 async function getNotes() {
     const response = await fetch('/notes');
+    checkResult(response);
     const notes = (await response.json()).data;
     let html = '';
     if (notes.length !== 0) {
@@ -24,36 +25,41 @@ async function getNotes() {
     document.querySelector('#notes').innerHTML = html;
 }
 
-// eslint-disable-next-line
-function createNote() {
-    const note = document.querySelector('#add-a-note').value;
-    fetch('/note/create', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        redirect: 'follow',
-        body: JSON.stringify({ note })
-    });
-    window.location.reload();
+async function createItem(category) {
+    if (category != 'note' && category != 'mishap') {
+        console.log('Unknown item');
+        return;
+    }
+    const item = document.querySelector(`#add-a-${category}`).value;
+    if (item === '') return;
+    if (category == 'note') {
+        await postToServer('/note/create', {note: item});
+    } else if (category == 'mishap') {
+        await postToServer('/mishap/create', {mishap: item});
+    }
+    document.querySelector(`#add-a-${category}`).value = '';
 }
 
-// eslint-disable-next-line
+// eslint-disable-next-line no-unused-vars
+async function createNote() {
+    await createItem('note');
+    await getNotes();
+}
+
+// eslint-disable-next-line no-unused-vars
 async function deleteNote(note_id) {
-    await fetch('/note/delete', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        redirect: 'follow',
-        body: JSON.stringify({ note: note_id })
-    });
-    document.querySelector('#notes').innerHTML = '';
-    getNotes();
+    await postToServer('/note/delete', {note: note_id});
+    await getNotes();
+}
+
+// eslint-disable-next-line no-unused-vars
+async function createMishap() {
+    await createItem('mishap');
 }
 
 async function generateCategoryDropdown() {
     const response = await fetch('/public/js/call-categories.json');
+    checkResult(response);
     const categories = await response.json();
     for (const category of categories) {
         const option = document.createElement('option');
@@ -63,7 +69,7 @@ async function generateCategoryDropdown() {
     }
 }
 
-// eslint-disable-next-line
+// eslint-disable-next-line no-unused-vars
 async function addCall() {
     const prid = document.querySelector('#prid').value;
     const cc = document.querySelector('#tic').value;
@@ -71,15 +77,30 @@ async function addCall() {
     const category = document.querySelector('#category').value;
     const response = document.querySelector('#response').value;
     const call_data = { prid, cc, driver, category, response };
-    fetch('/call/create', {
+    await postToServer('/call/create',call_data);
+    document.querySelector('#prid').value = '';
+    document.querySelector('#tic').value = '';
+    document.querySelector('#driver').value = '';
+    document.querySelector('#category').value = '';
+    document.querySelector('#response').value = '';
+}
+
+async function postToServer(endpoint, body) {
+    const response = await fetch(endpoint, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
         redirect: 'follow',
-        body: JSON.stringify(call_data)
+        body: JSON.stringify(body)
     });
-    window.location.reload();
+    checkResult(response);
+}
+
+function checkResult(response) {
+    if (!response.ok) {
+        throw response.statusText;
+    }
 }
 
 getNotes();

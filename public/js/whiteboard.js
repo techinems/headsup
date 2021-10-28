@@ -1,4 +1,9 @@
-/* global moment, io */
+/* global moment, io, SunCalc */
+
+const longitude = -73.675770;
+const latitude = 42.729270;
+// 30 minutes in milliseconds (60000 ms in 1 min)
+const thirtyMinutes = 60000 * 30;
 
 function updateCrew(crewResponse) {
     let crew = crewResponse;
@@ -31,14 +36,36 @@ function updateNotes(noteResponse) {
     }
 }
 
-function updateCallCount({callCount}) {
-    document.querySelector('#total-count').innerHTML = callCount;
+function updateCallCount({data}) {
+    document.querySelector('#total-count').innerHTML = data;
+}
+
+function updateMishapCount({data}) {
+    document.querySelector('#total-mishaps').innerHTML = data;
 }
 
 function updateDate() {
     const todaysDate = moment();
     document.querySelector('#date').innerHTML = todaysDate.format('D MMM YY');
     document.querySelector('#time').innerHTML = todaysDate.format('HH:mm');
+
+    const times = SunCalc.getTimes(new Date(), latitude, longitude);
+    const now = Date.now();
+    // if the current time falls between 30 minutes after sunrise and
+    // 30 minutes after sunset, then we use the light stylesheet, otherwise
+    // use the dark stylesheet. After updating the media attribute, all
+    // styles are re-applied on the page.
+    if (
+        (times.sunrise.getTime() + thirtyMinutes) <= now
+        && now < (times.sunset.getTime() + thirtyMinutes)
+    ) {
+        document.getElementById('stylesheet-light').media = '';
+        document.getElementById('stylesheet-dark').media = 'none';
+    }
+    else {
+        document.getElementById('stylesheet-dark').media = '';
+        document.getElementById('stylesheet-light').media = 'none';
+    }
 }
 
 function updateChores(choreList) {
@@ -72,15 +99,15 @@ socket.on('calls', (callResponse) => {
     updateCallCount(callResponse);
 });
 
+socket.on('mishaps', (mishapResponse) => {
+    updateMishapCount(mishapResponse);
+});
+
 socket.on('chores', (choreResponse) => {
     updateChores(choreResponse.chores);
 });
 
 // Refreshes the page allowing us to update the UI without ever touching the tv
-socket.on('refresh', () => {
-    window.location.reload();
-});
+socket.on('refresh', () => window.location.reload());
 
-setInterval(() => {
-    updateDate();
-}, 2000);
+setInterval(() => updateDate(), 2000);
