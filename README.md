@@ -7,4 +7,4 @@
 
 Heads up is RPIA's digital whiteboard.
 
-More details to follow
+More details to follow.
