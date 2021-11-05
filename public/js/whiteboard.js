@@ -23,6 +23,8 @@ function updateCrew(crewResponse) {
         document.querySelector('#rider1-rn').innerHTML = crew.rider1rn;
         document.querySelector('#rider2').innerHTML = crew.rider2;
         document.querySelector('#rider2-rn').innerHTML = crew.rider2rn;
+        document.querySelector('#dutysup').innerHTML = crew.dutysup;
+        document.querySelector('#dutysup-rn').innerHTML = crew.dutysuprn;
     }
 }
 
