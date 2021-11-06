@@ -37,7 +37,7 @@ function buildDateArray() {
     const currentHour = crewDate.hours();
     // If it's not noon yet we use the previous day's crew
     if (currentHour < 12) {
-        crewDate.subtract(1, "days");
+        crewDate.subtract(1, 'days');
     }
     const d = crewDate.format('YYYY-MM-DD');
     return [d, d, d, d, d];
