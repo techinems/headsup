@@ -21,7 +21,7 @@ const CREW_GET = `
         (SELECT m.first_name, m.last_name, m.radionum, c.date FROM crews c, members m
             WHERE m.id = c.attendant AND c.date = ?) as r1,
         (SELECT m.first_name, m.last_name, m.radionum, c.date FROM crews c, members m
-            WHERE m.id = c.observer AND c.date = ?) as r2
+            WHERE m.id = c.observer AND c.date = ?) as r2,
         (SELECT m.first_name, m.last_name, m.radionum, c.date FROM crews c, members m
             WHERE m.id = c.dutysup AND c.date = ?) as ds
     WHERE
