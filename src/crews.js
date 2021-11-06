@@ -40,7 +40,7 @@ function buildDateArray() {
         crewDate.subtract(1, "days");
     }
     const d = crewDate.format('YYYY-MM-DD');
-    return [d, d, d, d];
+    return [d, d, d, d, d];
 }
 
 exports.getCrew = pool => execQuery(pool, CREW_GET, buildDateArray(), results => {
