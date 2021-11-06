@@ -21,7 +21,7 @@ const CREW_GET = `
         (SELECT m.first_name, m.last_name, m.radionum, c.date FROM crews c, members m
             WHERE m.id = c.attendant AND c.date = ?) as r1,
         (SELECT m.first_name, m.last_name, m.radionum, c.date FROM crews c, members m
-            WHERE m.id = c.observer AND c.date = ?) as r2
+            WHERE m.id = c.observer AND c.date = ?) as r2,
         (SELECT m.first_name, m.last_name, m.radionum, c.date FROM crews c, members m
             WHERE m.id = c.dutysup AND c.date = ?) as ds
     WHERE
@@ -40,7 +40,7 @@ function buildDateArray() {
         crewDate.subtract(1, "days");
     }
     const d = crewDate.format('YYYY-MM-DD');
-    return [d, d, d, d];
+    return [d, d, d, d, d];
 }
 
 exports.getCrew = pool => execQuery(pool, CREW_GET, buildDateArray(), results => {
