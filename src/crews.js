@@ -3,6 +3,11 @@ const moment = require('moment');
 
 const CREW_GET = `
     SELECT
+        c.id as cc_id,
+        d.id as driver_id,
+        r1.id as rider1_id,
+        r2.id as rider2_id,
+        ds.id as dutysup_id,
         CONCAT(SUBSTRING(c.first_name, 1, 1), '. ', c.last_name) as cc,
         CONCAT(SUBSTRING(d.first_name, 1, 1), '. ', d.last_name) as driver,
         CONCAT(SUBSTRING(r1.first_name, 1, 1), '. ', r1.last_name) as rider1,
@@ -14,15 +19,15 @@ const CREW_GET = `
         r2.radionum as rider2rn,
         ds.radionum as dutysuprn
     FROM
-        (SELECT m.first_name, m.last_name, m.radionum, c.date FROM crews c, members m
+        (SELECT m.id, m.first_name, m.last_name, m.radionum, c.date FROM crews c, members m
             WHERE m.id = c.cc AND c.date = ?) as c,
-        (SELECT m.first_name, m.last_name, m.radionum, c.date FROM crews c, members m
+        (SELECT m.id, m.first_name, m.last_name, m.radionum, c.date FROM crews c, members m
             WHERE m.id = c.driver AND c.date = ?) as d,
-        (SELECT m.first_name, m.last_name, m.radionum, c.date FROM crews c, members m
+        (SELECT m.id, m.first_name, m.last_name, m.radionum, c.date FROM crews c, members m
             WHERE m.id = c.attendant AND c.date = ?) as r1,
-        (SELECT m.first_name, m.last_name, m.radionum, c.date FROM crews c, members m
+        (SELECT m.id, m.first_name, m.last_name, m.radionum, c.date FROM crews c, members m
             WHERE m.id = c.observer AND c.date = ?) as r2,
-        (SELECT m.first_name, m.last_name, m.radionum, c.date FROM crews c, members m
+        (SELECT m.id, m.first_name, m.last_name, m.radionum, c.date FROM crews c, members m
             WHERE m.id = c.dutysup AND c.date = ?) as ds
     WHERE
         c.date IS NOT NULL AND
@@ -43,7 +48,43 @@ function buildDateArray() {
     return [d, d, d, d, d];
 }
 
+function cleanName(memberid) {
+  if (memberid == 0) {
+    return "VACANT";
+  } else if (memberid == -1) {
+    return "RESERVED";
+  } else if (memberid == -2) {
+    return "OUT OF SERVICE";
+  }
+}
+
 exports.getCrew = pool => execQuery(pool, CREW_GET, buildDateArray(), results => {
     delete results['meta'];
+
+    if (results[data][0].cc_id <= 0) {
+      ccrn = 0;
+      cc = cleanName(results[data][0].cc_id);
+    }
+
+    if (results[data][0].driver_id <= 0) {
+      results[data][0].driverrn = 0;
+      esults[data][0].driver = cleanName(results[data][0].driver_id);
+    }
+
+    if (results[data][0].rider1_id <= 0) {
+      results[data][0].rider1rn = 0;
+      results[data][0].rider1 = cleanName(results[data][0].rider1_id);
+    }
+
+    if (results[data][0].rider3_id <= 0) {
+      results[data][0].rider3rn = 0;
+      results[data][0].rider3 = cleanName(results[data][0].rider3_id);
+    }
+
+    if (results[data][0].dutysup_id <= 0) {
+      results[data][0].dutysuprn = 0;
+      results[data][0].dutysup = cleanName(results[data][0].dutysup_id);
+    }
+
     return results;
 }, process.env.CREWS_DB_NAME);

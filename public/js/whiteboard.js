@@ -13,8 +13,8 @@ function updateCrew(crewResponse) {
         crew = crew.data[0];
         const riderRadioNums = [993, 992];
         // Sets the rider's radionums to 992 and 993 if they don't have one
-        crew.rider1rn = crew.rider1rn == 0 ? riderRadioNums.pop() : crew.rider1rn;
-        crew.rider2rn = crew.rider2rn == 0 ? riderRadioNums.pop() : crew.rider2rn;
+        crew.rider1rn = (crew.rider1_id > 0 && crew.rider1rn == 0) ? riderRadioNums.pop() : crew.rider1rn;
+        crew.rider2rn = (crew.rider2_id > 0 && crew.rider2rn == 0) ? riderRadioNums.pop() : crew.rider2rn;
         document.querySelector('#cc').innerHTML = crew.cc;
         document.querySelector('#cc-rn').innerHTML = crew.ccrn;
         document.querySelector('#driver').innerHTML = crew.driver;
