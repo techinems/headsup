@@ -61,14 +61,16 @@ function cleanName(memberid) {
 exports.getCrew = pool => execQuery(pool, CREW_GET, buildDateArray(), results => {
     delete results['meta'];
 
+    // if any of the rider spots are vacant/OOS/reserved, give them the correct "name"/radio number
+
     if (results[data][0].cc_id <= 0) {
-      ccrn = 0;
-      cc = cleanName(results[data][0].cc_id);
+      results[data][0].ccrn = 0;
+      results[data][0].cc = cleanName(results[data][0].cc_id);
     }
 
     if (results[data][0].driver_id <= 0) {
       results[data][0].driverrn = 0;
-      esults[data][0].driver = cleanName(results[data][0].driver_id);
+      results[data][0].driver = cleanName(results[data][0].driver_id);
     }
 
     if (results[data][0].rider1_id <= 0) {
@@ -76,9 +78,9 @@ exports.getCrew = pool => execQuery(pool, CREW_GET, buildDateArray(), results =>
       results[data][0].rider1 = cleanName(results[data][0].rider1_id);
     }
 
-    if (results[data][0].rider3_id <= 0) {
-      results[data][0].rider3rn = 0;
-      results[data][0].rider3 = cleanName(results[data][0].rider3_id);
+    if (results[data][0].rider2_id <= 0) {
+      results[data][0].rider2rn = 0;
+      results[data][0].rider2 = cleanName(results[data][0].rider3_id);
     }
 
     if (results[data][0].dutysup_id <= 0) {
