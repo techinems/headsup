@@ -7,7 +7,6 @@ const thirtyMinutes = 60000 * 30;
 
 function updateCrew(crewResponse) {
     let crew = crewResponse;
-    console.log(crew);
     if (!crew.success) {
         console.error('Failed to fetch!');
     } else {
