@@ -12,16 +12,16 @@ function updateCrew(crewResponse) {
     } else {
         const riderRadioNums = [993, 992];
         // Sets the rider's radionums to 992 and 993 if they don't have one
-        crew.rider1.rn = (crew.rider1.id > 0 && crew.rider1.rn == 0) ? riderRadioNums.pop() : crew.rider1.rn;
-        crew.rider2.rn = (crew.rider2.id > 0 && crew.rider2.rn == 0) ? riderRadioNums.pop() : crew.rider2.rn;
+        crew.attendant.rn = (crew.attendant.id > 0 && crew.attendant.rn == 0) ? riderRadioNums.pop() : crew.attendant.rn;
+        crew.observer.rn = (crew.observer.id > 0 && crew.observer.rn == 0) ? riderRadioNums.pop() : crew.observer.rn;
         document.querySelector('#cc').innerHTML = crew.cc.name;
         document.querySelector('#cc-rn').innerHTML = crew.cc.id > 0 ? crew.cc.rn : '';
         document.querySelector('#driver').innerHTML = crew.driver.name;
         document.querySelector('#driver-rn').innerHTML = crew.driver.id > 0 ? crew.driver.rn : '';
-        document.querySelector('#rider1').innerHTML = crew.rider1.name;
-        document.querySelector('#rider1-rn').innerHTML = crew.rider1.id > 0 ? crew.rider1.rn : '';
-        document.querySelector('#rider2').innerHTML = crew.rider2.name;
-        document.querySelector('#rider2-rn').innerHTML = crew.rider2.id > 0 ? crew.rider2.rn : '';
+        document.querySelector('#rider1').innerHTML = crew.attendant.name;
+        document.querySelector('#rider1-rn').innerHTML = crew.attendant.id > 0 ? crew.attendant.rn : '';
+        document.querySelector('#rider2').innerHTML = crew.observer.name;
+        document.querySelector('#rider2-rn').innerHTML = crew.observer.id > 0 ? crew.observer.rn : '';
         document.querySelector('#dutysup').innerHTML = crew.dutysup.name;
         document.querySelector('#dutysup-rn').innerHTML = crew.dutysup.id > 0 ? crew.dutysup.rn : '';
     }

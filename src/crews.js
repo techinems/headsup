@@ -53,21 +53,13 @@ exports.getCrew = async (pool) => {
         const date = buildDate();
         const crew = { success: true };
 
-        let cc = await execQuery(pool, getQuery('cc'), date, cleanQueryResult, process.env.CREWS_DB_NAME);
-        crew.cc = cleanName(cc);
+        const positions = [ "cc", "driver", "attendant", "observer", "dutysup" ];
 
-        let driver = await execQuery(pool, getQuery('driver'), date, cleanQueryResult, process.env.CREWS_DB_NAME);
-        crew.driver = cleanName(driver);
-        
-        let rider1 = await execQuery(pool, getQuery('attendant'), date, cleanQueryResult, process.env.CREWS_DB_NAME);
-        crew.rider1 = cleanName(rider1);  
-        
-        let rider2 = await execQuery(pool, getQuery('observer'), date, cleanQueryResult, process.env.CREWS_DB_NAME);
-        crew.rider2 = cleanName(rider2);  
-        
-        let dutysup = await execQuery(pool, getQuery('dutysup'), date, cleanQueryResult, process.env.CREWS_DB_NAME);
-        crew.dutysup = cleanName(dutysup);
-        
+        for ( const p of positions ) {
+            let result = await execQuery(pool, getQuery(p), date, cleanQueryResult, process.env.CREWS_DB_NAME);
+            crew[p] = cleanName(result);
+        }
+
         return crew;
     } catch (err) {
         console.error(err);
