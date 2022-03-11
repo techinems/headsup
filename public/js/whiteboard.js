@@ -5,6 +5,18 @@ const latitude = 42.729270;
 // 30 minutes in milliseconds (60000 ms in 1 min)
 const thirtyMinutes = 60000 * 30;
 
+function cleanRadioNum(id, rn) {
+    return id > 0 ? rn : '';
+}
+
+function checkRiderNum(id, rn, radioNums) {
+    if (id > 0 && rn == 0) {
+        return radioNums.pop();
+    } else {
+        return rn;
+    }
+}
+
 function updateCrew(crewResponse) {
     let crew = crewResponse;
     if (!crew.success) {
@@ -12,18 +24,18 @@ function updateCrew(crewResponse) {
     } else {
         const riderRadioNums = [993, 992];
         // Sets the rider's radionums to 992 and 993 if they don't have one
-        crew.attendant.rn = (crew.attendant.id > 0 && crew.attendant.rn == 0) ? riderRadioNums.pop() : crew.attendant.rn;
-        crew.observer.rn = (crew.observer.id > 0 && crew.observer.rn == 0) ? riderRadioNums.pop() : crew.observer.rn;
+        crew.attendant.rn = checkRiderNum(crew.attendant.id, crew.attendant.rn, riderRadioNums);
+        crew.observer.rn = checkRiderNum(crew.observer.id, crew.observer.rn, riderRadioNums);
         document.querySelector('#cc').innerHTML = crew.cc.name;
-        document.querySelector('#cc-rn').innerHTML = crew.cc.id > 0 ? crew.cc.rn : '';
+        document.querySelector('#cc-rn').innerHTML = cleanRadioNum(crew.cc.id, crew.cc.rn);
         document.querySelector('#driver').innerHTML = crew.driver.name;
-        document.querySelector('#driver-rn').innerHTML = crew.driver.id > 0 ? crew.driver.rn : '';
+        document.querySelector('#driver-rn').innerHTML = cleanRadioNum(crew.driver.id, crew.driver.rn);
         document.querySelector('#rider1').innerHTML = crew.attendant.name;
-        document.querySelector('#rider1-rn').innerHTML = crew.attendant.id > 0 ? crew.attendant.rn : '';
+        document.querySelector('#rider1-rn').innerHTML = cleanRadioNum(crew.attendant.id, crew.attendant.rn);
         document.querySelector('#rider2').innerHTML = crew.observer.name;
-        document.querySelector('#rider2-rn').innerHTML = crew.observer.id > 0 ? crew.observer.rn : '';
+        document.querySelector('#rider2-rn').innerHTML = cleanRadioNum(crew.observer.id, crew.observer.rn);
         document.querySelector('#dutysup').innerHTML = crew.dutysup.name;
-        document.querySelector('#dutysup-rn').innerHTML = crew.dutysup.id > 0 ? crew.dutysup.rn : '';
+        document.querySelector('#dutysup-rn').innerHTML = cleanRadioNum(crew.dutysup.id, crew.dutysup.rn);
     }
 }
 
