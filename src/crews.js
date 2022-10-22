@@ -16,7 +16,7 @@ function buildDate() {
     const crewDate = moment();
     const currentHour = crewDate.hours();
     // If it's not noon yet we use the previous day's crew
-    if (currentHour < 12) {
+    if (currentHour < 9) {
         crewDate.subtract(1, 'days');
     }
     return crewDate.format('YYYY-MM-DD');
