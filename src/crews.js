@@ -27,17 +27,17 @@ function cleanName(member) {
     if (member.data[0] == undefined) {
         return {
             id: 0,
-            name: "",
+            name: '',
             rn: 0
-        }
+        };
     }
 
-    member = member.data[0]
+    member = member.data[0];
 
     if (member.id == -1) {
-        member.name = "RESERVED";
+        member.name = 'RESERVED';
     } else if (member.id == -2) {
-        member.name = "OUT OF SERVICE";
+        member.name = 'OUT OF SERVICE';
     }
 
     return member;
@@ -53,7 +53,7 @@ exports.getCrew = async (pool) => {
         const date = buildDate();
         const crew = { success: true };
 
-        const positions = [ "cc", "driver", "attendant", "observer", "dutysup" ];
+        const positions = [ 'cc', 'driver', 'attendant', 'observer', 'dutysup' ];
 
         for ( const p of positions ) {
             let result = await execQuery(pool, getQuery(p), date, cleanQueryResult, process.env.CREWS_DB_NAME);
@@ -65,4 +65,4 @@ exports.getCrew = async (pool) => {
         console.error(err);
         return { success: false };
     }
-}
+};

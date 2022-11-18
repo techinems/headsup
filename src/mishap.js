@@ -8,5 +8,5 @@ exports.createMishap = (pool, mishap) => {
 };
 
 exports.getTotalMishaps = pool => {
-    return execQuery(pool, MISHAP_COUNT, null, r => r[0].mishapCount);
+    return execQuery(pool, MISHAP_COUNT, null, r => parseInt(r[0].mishapCount));
 };

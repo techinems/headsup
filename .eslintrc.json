@@ -14,14 +14,12 @@
     "ecmaVersion": 2018
   },
   "rules": {
-    "linebreak-style": ["error", "unix"],
     "quotes": ["error", "single"],
     "semi": ["error", "always"],
     "no-console": "off",
     "no-var": 1,
     "no-case-declarations": 0,
     "semi-spacing": ["error", {"before": false, "after": true}],
-    "max-len": ["error", { "code": 90}],
     "indent": ["error", 4],
     "no-lonely-if": "error",
     "no-multiple-empty-lines": ["error", { "max": 1 }],
