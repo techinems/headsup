@@ -72,12 +72,17 @@ function updateDate() {
         (times.sunrise.getTime() + thirtyMinutes) <= now
         && now < (times.sunset.getTime() + thirtyMinutes)
     ) {
-        document.getElementById('stylesheet-light').media = '';
-        document.getElementById('stylesheet-dark').media = 'none';
+        if (isDarkMode()) {
+            document.getElementById('stylesheet-light').media = '';
+            document.getElementById('stylesheet-dark').media = 'none';    
+        }
     }
     else {
-        document.getElementById('stylesheet-dark').media = '';
-        document.getElementById('stylesheet-light').media = 'none';
+        if(!isDarkMode())
+        {
+            document.getElementById('stylesheet-dark').media = 'none';
+            document.getElementById('stylesheet-light').media = '';
+        }
     }
 }
 
