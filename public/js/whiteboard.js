@@ -68,21 +68,21 @@ function updateDate() {
     // 30 minutes after sunset, then we use the light stylesheet, otherwise
     // use the dark stylesheet. After updating the media attribute, all
     // styles are re-applied on the page.
-    if (
-        (times.sunrise.getTime() + thirtyMinutes) <= now
-        && now < (times.sunset.getTime() + thirtyMinutes)
-    ) {
-        if (isDarkMode()) {
-            document.getElementById('stylesheet-light').media = '';
-            document.getElementById('stylesheet-dark').media = 'none';    
-        }
-    }
-    else {
-        if(!isDarkMode())
-        {
-            document.getElementById('stylesheet-light').media = 'none';
-            document.getElementById('stylesheet-dark').media = '';
-        }
+
+    const isCurrentlyDay = (times.sunrise.getTime() + thirtyMinutes) <= now
+                            && now < (times.sunset.getTime() + thirtyMinutes)
+
+    const isDarkMode = (
+        (document.getElementById('stylesheet-light').media == 'none') &&
+        (document.getElementById('stylesheet-dark').media == '')
+    )
+            
+    if (isCurrentlyDay && isDarkMode) {
+        document.getElementById('stylesheet-light').media = '';
+        document.getElementById('stylesheet-dark').media = 'none';    
+    } else if(!isCurrentlyDay && !isDarkMode) {
+        document.getElementById('stylesheet-light').media = 'none';
+        document.getElementById('stylesheet-dark').media = '';
     }
 }
 
