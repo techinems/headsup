@@ -16,7 +16,8 @@ const pool = mariadb.createPool({
     host: process.env.DB_HOST,
     user: process.env.DB_USER,
     password: process.env.DB_PASSWORD,
-    connectionLimit: 10
+    connectionLimit: 10,
+    charset: 'utf8mb4'
 });
 
 // Initialize express app
@@ -28,7 +29,7 @@ app.use(bodyParser.json());
 
 app.use('/public', express.static(path.join(__dirname, 'public')));
 
-app.get('/suncalc.js', (req, res) => {
+app.get('/suncalc.js', (_, res) => {
     res.sendFile(path.join(__dirname, 'node_modules', 'suncalc', 'suncalc.js'));
 });
 
@@ -48,12 +49,12 @@ app.get('/admin', (req, res) => {
     }
 });
 
-app.get('/crew', async (req, res) => {
+app.get('/crew', async (_, res) => {
     const response_data = await crews.getCrew(pool);
     res.send(response_data);
 });
 
-app.get('/notes', async (req, res) => {
+app.get('/notes', async (_, res) => {
     const response_data = await notes.getNotes(pool);
     io.emit('notes', response_data);
     res.send(response_data);
@@ -85,7 +86,7 @@ app.post('/mishap/create', async (req, res) => {
     res.send(response_data);
 });
 
-app.get('/mishap', async (req, res) => {
+app.get('/mishap', async (_, res) => {
     const response_data = await mishap.getTotalMishaps(pool);
     res.send(response_data);
 });
