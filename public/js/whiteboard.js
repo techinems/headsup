@@ -69,6 +69,12 @@ function updateDate() {
     // use the dark stylesheet. After updating the media attribute, all
     // styles are re-applied on the page.
 
+    // default to light mode
+    if (document.getElementById('stylesheet-light').media == document.getElementById('stylesheet-dark').media) {
+        document.getElementById('stylesheet-light').media = '';
+        document.getElementById('stylesheet-dark').media = 'none';    
+    }
+
     const isCurrentlyDay = (times.sunrise.getTime() + thirtyMinutes) <= now
                             && now < (times.sunset.getTime() + thirtyMinutes)
 
