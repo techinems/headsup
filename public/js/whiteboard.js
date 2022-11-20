@@ -80,8 +80,8 @@ function updateDate() {
     else {
         if(!isDarkMode())
         {
-            document.getElementById('stylesheet-dark').media = 'none';
-            document.getElementById('stylesheet-light').media = '';
+            document.getElementById('stylesheet-light').media = 'none';
+            document.getElementById('stylesheet-dark').media = '';
         }
     }
 }
@@ -91,7 +91,7 @@ function isDarkMode() {
         (document.getElementById('stylesheet-light').media == 'none') &&
         (document.getElementById('stylesheet-dark').media == '') 
     )
-}
+}   
 
 function updateChores(choreList) {
     const choreDiv = document.querySelector('#chores');
