@@ -86,6 +86,13 @@ function updateDate() {
     }
 }
 
+function isDarkMode() {
+    return (
+        (document.getElementById('stylesheet-light').media == 'none') &&
+        (document.getElementById('stylesheet-dark').media == '') 
+    )
+}
+
 function updateChores(choreList) {
     const choreDiv = document.querySelector('#chores');
     choreDiv.innerHTML = '';
