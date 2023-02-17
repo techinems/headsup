@@ -96,6 +96,11 @@ app.post('/chores', (req, res) => {
     res.send({success: true});
 });
 
+app.post('/dispatch', (req, res) => {
+    io.emit('dispatch', req.body);
+    res.send({success: true});
+});
+
 io.on('connection', async () => {
     io.emit('notes', await notes.getNotes(pool));
     io.emit('crews', await crews.getCrew(pool));
