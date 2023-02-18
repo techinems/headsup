@@ -79,12 +79,12 @@ function updateDate() {
     }
 
     const isCurrentlyDay = (times.sunrise.getTime() + thirtyMinutes) <= now
-                            && now < (times.sunset.getTime() + thirtyMinutes)
+                            && now < (times.sunset.getTime() + thirtyMinutes);
 
     const isDarkMode = (
         (document.getElementById('stylesheet-light').media == 'none') &&
         (document.getElementById('stylesheet-dark').media == '')
-    )
+    );
             
     if (isCurrentlyDay && isDarkMode) {
         document.getElementById('stylesheet-light').media = '';

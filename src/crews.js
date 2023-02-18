@@ -1,6 +1,8 @@
 const { execQuery } = require('./db');
 const moment = require('moment');
 
+const DEV = process.env.ENV == 'dev' ? true : false;
+
 function getQuery(role) {
     return `SELECT
         c.${role} AS id,
@@ -28,7 +30,7 @@ function cleanName(member) {
         return {
             id: 0,
             name: '',
-            rn: 0
+            rn: 0,
         };
     }
 
@@ -49,14 +51,51 @@ function cleanQueryResult(results) {
 }
 
 exports.getCrew = async (pool) => {
+    if (DEV) {
+        const crew = {
+            success: true,
+            'cc': {
+                id: 1,
+                name: 'C. Chief',
+                rn: '901'
+            },
+            'driver': {
+                id:2,
+                name: 'D. Driver',
+                rn: '902'
+            },
+            'rider-1': {
+                id:3,
+                name: 'A. Attendant',
+                rn: '903'
+            },
+            'rider-2': {
+                id:4,
+                name: 'O. Observer',
+                rn: '904'
+            },
+            'dutysup': {
+                id:5,
+                name: 'D. Supervisor',
+                rn: '910'
+            },
+        };
+        return crew;
+    }
     try {
         const date = buildDate();
         const crew = { success: true };
 
-        const positions = [ 'cc', 'driver', 'attendant', 'observer', 'dutysup' ];
+        const positions = ['cc', 'driver', 'attendant', 'observer', 'dutysup'];
 
-        for ( const p of positions ) {
-            let result = await execQuery(pool, getQuery(p), date, cleanQueryResult, process.env.CREWS_DB_NAME);
+        for (const p of positions) {
+            let result = await execQuery(
+                pool,
+                getQuery(p),
+                date,
+                cleanQueryResult,
+                process.env.CREWS_DB_NAME
+            );
             crew[p] = cleanName(result);
         }
 
