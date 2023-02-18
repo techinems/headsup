@@ -17,7 +17,7 @@ const pool = mariadb.createPool({
     user: process.env.DB_USER,
     password: process.env.DB_PASSWORD,
     connectionLimit: 10,
-    charset: 'utf8mb4'
+    charset: 'utf8mb4',
 });
 
 // Initialize express app
@@ -93,12 +93,12 @@ app.get('/mishap', async (_, res) => {
 
 app.post('/chores', (req, res) => {
     io.emit('chores', req.body);
-    res.send({success: true});
+    res.send({ success: true });
 });
 
 app.post('/dispatch', (req, res) => {
     io.emit('dispatch', req.body);
-    res.send({success: true});
+    res.send({ success: true });
 });
 
 io.on('connection', async () => {
