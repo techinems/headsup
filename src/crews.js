@@ -64,12 +64,12 @@ exports.getCrew = async (pool) => {
                 name: 'D. Driver',
                 rn: '902'
             },
-            'rider-1': {
+            'attendant': {
                 id:3,
                 name: 'A. Attendant',
                 rn: '903'
             },
-            'rider-2': {
+            'observer': {
                 id:4,
                 name: 'O. Observer',
                 rn: '904'
