@@ -3,7 +3,10 @@
 const longitude = -73.675770;
 const latitude = 42.729270;
 // 30 minutes in milliseconds (60000 ms in 1 min)
-const thirtyMinutes = 60000 * 30;
+//Time Constants(in Milliseconds)
+const oneMinute = 60000;
+const thirtyMinutes = oneMinute * 30;
+const threeMinutes = oneMinute * 3;
 
 function cleanRadioNum(id, rn) {
     return id > 0 ? rn : '';
@@ -108,6 +111,30 @@ function updateChores(choreList) {
     }
 }
 
+function clearDispatch(){
+    document.getElementById('dispatch').hidden = true;
+    document.getElementById('display').hidden = false;
+
+    document.getElementById('stylesheet-dispatch').media = 'none';
+
+    document.getElementById('determinant').textContent = '';
+    document.getElementById('complaint').textContent = '';
+    document.getElementById('location').textContent = '';
+}
+
+function dispatch(determinant, complaint, location){
+    document.getElementById('determinant').textContent = determinant;
+    document.getElementById('complaint').textContent = complaint;
+    document.getElementById('location').textContent = location;
+
+    document.getElementById('stylesheet-dispatch').media = '';
+
+    document.getElementById('display').hidden = true;
+    document.getElementById('dispatch').hidden = false;
+
+    setTimeout(clearDispatch, threeMinutes);
+}
+
 updateDate();
 
 const socket = io.connect();
@@ -129,6 +156,10 @@ socket.on('mishaps', (mishapResponse) => {
 
 socket.on('chores', (choreResponse) => {
     updateChores(choreResponse.chores);
+});
+
+socket.on('dispatch', (dispatchResponse) => {
+    dispatch(dispatchResponse.determinant, dispatchResponse.complaint, dispatchResponse.location);
 });
 
 // Refreshes the page allowing us to update the UI without ever touching the tv
