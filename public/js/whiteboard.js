@@ -169,6 +169,11 @@ function handleDispatch(determinant, complaint, location) {
       break;
   }
 
+  const dispatchTime = moment();
+
+  document.getElementById("dispatch-time").textContent =
+    dispatchTime.format("HH:mm:ss");
+
   document.getElementById("determinant").textContent = determinant;
   document.getElementById("complaint").textContent = complaint;
   document.getElementById("location").textContent = location;
