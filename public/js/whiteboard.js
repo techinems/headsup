@@ -171,8 +171,9 @@ function handleDispatch(determinant, complaint, location) {
 
   const dispatchTime = moment();
 
-  document.getElementById("dispatch-time").textContent =
-    dispatchTime.format("HH:mm:ss");
+  document.getElementById(
+    "dispatch-time"
+  ).textContent = `Dispatched at: ${dispatchTime.format("HH:mm:ss")}`;
 
   document.getElementById("determinant").textContent = determinant;
   document.getElementById("complaint").textContent = complaint;
