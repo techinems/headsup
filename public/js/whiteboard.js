@@ -146,9 +146,29 @@ function clearDispatch() {
   document.getElementById("determinant").textContent = "";
   document.getElementById("complaint").textContent = "";
   document.getElementById("location").textContent = "";
+
+  document.getElementById("determinant").className = "determinant mt-3 mb-3";
 }
 
 function handleDispatch(determinant, complaint, location) {
+  switch (determinant) {
+    case "Alpha":
+      document.getElementById("determinant").classList.add("alpha");
+      break;
+    case "Bravo":
+      document.getElementById("determinant").classList.add("bravo");
+      break;
+    case "Charlie":
+      document.getElementById("determinant").classList.add("charlie");
+      break;
+    case "Delta":
+      document.getElementById("determinant").classList.add("delta");
+      break;
+    case "Echo":
+      document.getElementById("determinant").classList.add("echo");
+      break;
+  }
+
   document.getElementById("determinant").textContent = determinant;
   document.getElementById("complaint").textContent = complaint;
   document.getElementById("location").textContent = location;

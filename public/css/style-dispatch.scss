@@ -10,17 +10,20 @@
 body {
   height: 100vh;
   // background-color: #952525;
-  animation: dispatchBackground 1s infinite alternate;
+  animation: dispatchBackground .5s infinite cubic-bezier(0, 1, 1, 1) alternate;
   color: white;
   font-weight: 700;
 }
 
 #dispatch-filler {
   height: 200px;
+  font-size: 60px;
+  color: #e5e5e5;
 }
 
 #determinant {
   border-radius: 100px;
+  text-transform: uppercase;
 }
 
 .alpha {
@@ -41,9 +44,10 @@ body {
 .delta {
   background: #b10000;
   color: #fff;
-
 }
 
 .echo {
   background: #000;
-  color: #ff1f1f;}
+  color: #ff1f1f;
+}
+
