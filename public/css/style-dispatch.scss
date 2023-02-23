@@ -1,4 +1,49 @@
+@keyframes dispatchBackground {
+  from {
+    background-color: #4a0000;
+  }
+  to {
+    background-color: #5a0000;
+  }
+}
+
 body {
   height: 100vh;
-  background-color: #ff6666;
+  // background-color: #952525;
+  animation: dispatchBackground 1s infinite alternate;
+  color: white;
+  font-weight: 700;
 }
+
+#dispatch-filler {
+  height: 200px;
+}
+
+#determinant {
+  border-radius: 100px;
+}
+
+.alpha {
+  background: #9bda9b;
+  color: black;
+}
+
+.bravo {
+  background: #ece68d;
+  color: black;
+}
+
+.charlie {
+  background: #f09442;
+  color: #020004;
+}
+
+.delta {
+  background: #b10000;
+  color: #fff;
+
+}
+
+.echo {
+  background: #000;
+  color: #ff1f1f;}
