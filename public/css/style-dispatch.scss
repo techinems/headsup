@@ -1,8 +1,8 @@
 @keyframes dispatchBackground {
-  from {
+  from{
     background-color: #4a0000;
   }
-  to {
+  to{
     background-color: #5a0000;
   }
 }
@@ -13,6 +13,11 @@ body {
   animation: dispatchBackground .5s infinite cubic-bezier(0, 1, 1, 1) alternate;
   color: white;
   font-weight: 700;
+}
+
+#dispatch{
+  font-size: 100px;
+  text-transform: capitalize;
 }
 
 #dispatch-filler {
