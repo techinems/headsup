@@ -8,6 +8,8 @@ const oneMinute = 60000;
 const thirtyMinutes = oneMinute * 30;
 const threeMinutes = oneMinute * 3;
 
+let dispatchTimeoutID = "";
+
 function cleanRadioNum(id, rn) {
   return id > 0 ? rn : "";
 }
@@ -138,6 +140,7 @@ function updateChores(choreList) {
 }
 
 function clearDispatch() {
+  dispatchTimeoutID = "";
   document.getElementById("dispatch").hidden = true;
   document.getElementById("display").hidden = false;
 
@@ -151,6 +154,11 @@ function clearDispatch() {
 }
 
 function handleDispatch(determinant, complaint, location) {
+  if (dispatchTimeoutID != "") {
+    clearDispatch();
+    clearTimeout(dispatchTimeoutID);
+  }
+
   switch (determinant) {
     case "Alpha":
       document.getElementById("determinant").classList.add("alpha");
@@ -184,7 +192,7 @@ function handleDispatch(determinant, complaint, location) {
   document.getElementById("display").hidden = true;
   document.getElementById("dispatch").hidden = false;
 
-  setTimeout(clearDispatch, threeMinutes);
+  dispatchTimeoutID = setTimeout(clearDispatch, threeMinutes);
 }
 
 updateDate();
@@ -211,10 +219,11 @@ socket.on("chores", (choreResponse) => {
 });
 
 socket.on("dispatch", (dispatchResponse) => {
+  console.log(dispatchResponse);
   handleDispatch(
-    dispatchResponse.determinant,
-    dispatchResponse.complaint,
-    dispatchResponse.location
+    dispatchResponse["CALL TYPE"].determinant,
+    dispatchResponse["CALL TYPE"].complaint,
+    dispatchResponse.LOCATION
   );
 });
 
