@@ -1,7 +1,7 @@
 const { execQuery } = require('./db');
 const moment = require('moment');
 
-const DEV = process.env.ENV == 'dev' ? true : false;
+const DEV = process.env.ENV == 'dev';
 
 function getQuery(role) {
     return `SELECT
