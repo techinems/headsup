@@ -24,6 +24,7 @@ const pool = mariadb.createPool({
 const PORT = process.env.PORT || 8080;
 const WEBSITE_ACCESS_TOKEN = process.env.WEBSITE_ACCESS_TOKEN;
 const HERALD_TOKEN = process.env.HERALD_TOKEN;
+const LOCALE = {longitude: process.env.LONGITUDE, latitude: process.env.LATITUDE};
 
 // app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -32,6 +33,10 @@ app.use('/public', express.static(path.join(__dirname, 'public')));
 
 app.get('/suncalc.js', (_, res) => {
     res.sendFile(path.join(__dirname, 'node_modules', 'suncalc', 'suncalc.js'));
+});
+
+app.get('/locale', (_, res) => {
+    res.json(LOCALE);
 });
 
 app.get('/', (req, res) => {

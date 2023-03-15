@@ -1,7 +1,5 @@
 /* global moment, io, SunCalc */
-
-const longitude = -73.67577;
-const latitude = 42.72927;
+let locale;
 // 30 minutes in milliseconds (60000 ms in 1 min)
 //Time Constants(in Milliseconds)
 const oneMinute = 60000;
@@ -90,7 +88,7 @@ function updateDate() {
   document.querySelector("#date").innerHTML = todaysDate.format("D MMM YY");
   document.querySelector("#time").innerHTML = todaysDate.format("HH:mm");
 
-  const times = SunCalc.getTimes(new Date(), latitude, longitude);
+  const times = SunCalc.getTimes(new Date(), locale.latitude, locale.longitude);
   const now = Date.now();
   // if the current time falls between 30 minutes after sunrise and
   // 30 minutes after sunset, then we use the light stylesheet, otherwise
@@ -195,8 +193,6 @@ function handleDispatch(determinant, complaint, location) {
   dispatchTimeoutID = setTimeout(clearDispatch, threeMinutes);
 }
 
-updateDate();
-
 const socket = io.connect();
 socket.on("notes", (noteResponse) => {
   updateNotes(noteResponse);
@@ -230,4 +226,10 @@ socket.on("dispatch", (dispatchResponse) => {
 // Refreshes the page allowing us to update the UI without ever touching the tv
 socket.on("refresh", () => window.location.reload());
 
-setInterval(() => updateDate(), 2000);
+const response = fetch('/locale')
+  .then((response) => response.json())
+  .then((data) => {
+    locale = data;
+    updateDate();
+    setInterval(() => updateDate(), 2000);
+});
