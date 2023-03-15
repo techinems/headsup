@@ -89,8 +89,7 @@ async function postToServer(endpoint, body) {
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
     const token = urlParams.get('token');
-    const tokenEndpoint = endpoint + '?token=' + token;
-    const response = await fetch(tokenEndpoint, {
+    const response = await fetch(endpoint + '?token=' + token, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
