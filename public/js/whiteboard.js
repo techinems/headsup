@@ -154,7 +154,7 @@ function clearDispatch() {
 }
 
 function handleDispatch(determinant, complaint, location) {
-  if(dispatchTimeoutID != ""){
+  if (dispatchTimeoutID != "") {
     clearDispatch();
     clearTimeout(dispatchTimeoutID);
   }

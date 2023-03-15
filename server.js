@@ -23,6 +23,7 @@ const pool = mariadb.createPool({
 // Initialize express app
 const PORT = process.env.PORT || 8080;
 const WEBSITE_ACCESS_TOKEN = process.env.WEBSITE_ACCESS_TOKEN;
+const HERALD_TOKEN = process.env.HERALD_TOKEN;
 
 // app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -97,8 +98,13 @@ app.post('/chores', (req, res) => {
 });
 
 app.post('/dispatch', (req, res) => {
-    io.emit('dispatch', req.body);
-    res.send({ success: true });
+    if (HERALD_TOKEN !== req.query.token) {
+        res.sendStatus(403);
+    } else {
+        console.log('recieved herald dispatch');
+        io.emit('dispatch', req.body);
+        res.send({ success: true });
+    }
 });
 
 io.on('connection', async () => {
