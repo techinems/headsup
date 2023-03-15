@@ -86,7 +86,11 @@ async function addCall() {
 }
 
 async function postToServer(endpoint, body) {
-    const response = await fetch(endpoint, {
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    const token = urlParams.get('token');
+    const tokenEndpoint = endpoint + '?token=' + token;
+    const response = await fetch(tokenEndpoint, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
