@@ -101,7 +101,7 @@ app.post('/dispatch', (req, res) => {
     if (HERALD_TOKEN !== req.query.token) {
         res.sendStatus(403);
     } else {
-        console.log('recieved herald dispatch');
+        console.log('received herald dispatch');
         io.emit('dispatch', req.body);
         res.send({ success: true });
     }
