@@ -8,7 +8,7 @@ const oneMinute = 60000;
 const thirtyMinutes = oneMinute * 30;
 const threeMinutes = oneMinute * 3;
 
-let dispatchTimeoutID;
+let dispatchTimeoutID = "";
 
 function cleanRadioNum(id, rn) {
   return id > 0 ? rn : "";
@@ -140,6 +140,7 @@ function updateChores(choreList) {
 }
 
 function clearDispatch() {
+  dispatchTimeoutID = "";
   document.getElementById("dispatch").hidden = true;
   document.getElementById("display").hidden = false;
 
@@ -153,8 +154,10 @@ function clearDispatch() {
 }
 
 function handleDispatch(determinant, complaint, location) {
-  clearDispatch();
-  clearTimeout(dispatchTimeoutID);
+  if(dispatchTimeoutID != ""){
+    clearDispatch();
+    clearTimeout(dispatchTimeoutID);
+  }
 
   switch (determinant) {
     case "Alpha":
