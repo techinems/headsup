@@ -1,4 +1,4 @@
-[![Build Status](https://cloud.drone.io/api/badges/rpiambulance/headsup/status.svg)](https://cloud.drone.io/rpiambulance/headsup)
+[![deploy headsup](https://github.com/techinems/headsup/actions/workflows/main.yml/badge.svg)](https://github.com/techinems/headsup/actions/workflows/main.yml)
 
 [![forthebadge](https://forthebadge.com/images/badges/built-with-love.svg)](https://forthebadge.com) [![forthebadge](https://forthebadge.com/images/badges/made-with-javascript.svg)](https://forthebadge.com)
 
