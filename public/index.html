@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <link rel="stylesheet" id='stylesheet-light' href="public/css/style.min.css" media=''>
   <link rel="stylesheet" id='stylesheet-dark' href="public/css/style-dark.min.css" media='none' />
-  
+  <link rel="stylesheet" id='stylesheet-dispatch' href="public/css/style-dispatch.min.css" media='none' />  
   <link rel="icon" type="image/png" href="public/img/favicon-16x16.png" sizes="16x16" />
   <link rel="icon" type="image/png" href="public/img/favicon-32x32.png" sizes="32x32" />
   <link rel="icon" type="image/png" href="public/img/favicon-96x96.png" sizes="96x96" />
@@ -27,63 +27,91 @@
         <b><span id="date"></span></b><span id="time"></span>
       </div>
     </div>
-    <div class="row">
-      <div id="schedule" class="col-md-8 section">
-        <div class="section-heading">Today's crew</div>
-        <div class="row crew-member">
-          <div class="col-md-12">
-            <span class="title">Crew chief</span>
-            <span id="cc" class="name"></span><span id="cc-rn" class="rn"></span>
+
+    <div id=display>
+      <div class="row">
+        <div id="schedule" class="col-md-8 section">
+          <div class="section-heading">Today's crew</div>
+            <div class="row crew-member">
+              <div class="col-md-12">
+                <span class="title">Crew chief</span>
+                <span id="cc" class="name"></span><span id="cc-rn" class="rn"></span>
+              </div>
+            </div>
+          <div class="row crew-member">
+            <div class="col-md-12">
+              <span class="title">Driver</span>
+              <span id="driver" class="name"></span><span id="driver-rn" class="rn"></span>
+            </div>
+          </div>
+          <div class="row crew-member">
+            <div class="col-md-12">
+              <span class="title">Attendant</span>
+              <span id="rider1" class="name"></span><span id="rider1-rn" class="rn"></span>
+            </div>
+          </div>
+          <div class="row crew-member">
+            <div class="col-md-12">
+              <span class="title">Attendant</span>
+              <span id="rider2" class="name"></span><span id="rider2-rn" class="rn"></span>
+            </div>
+          </div>
+          <div class="row crew-member">
+            <div class="col-md-12">
+              <span class="title">Duty supervisor</span>
+              <span id="dutysup" class="name"></span><span id="dutysup-rn" class="rn"></span>
+            </div>
           </div>
         </div>
-        <div class="row crew-member">
-          <div class="col-md-12">
-            <span class="title">Driver</span>
-            <span id="driver" class="name"></span><span id="driver-rn" class="rn"></span>
-          </div>
-        </div>
-        <div class="row crew-member">
-          <div class="col-md-12">
-            <span class="title">Attendant</span>
-            <span id="rider1" class="name"></span><span id="rider1-rn" class="rn"></span>
-          </div>
-        </div>
-        <div class="row crew-member">
-          <div class="col-md-12">
-            <span class="title">Attendant</span>
-            <span id="rider2" class="name"></span><span id="rider2-rn" class="rn"></span>
-          </div>
-        </div>
-        <div class="row crew-member">
-          <div class="col-md-12">
-            <span class="title">Duty supervisor</span>
-            <span id="dutysup" class="name"></span><span id="dutysup-rn" class="rn"></span>
-          </div>
+        <div id="call-volume" class="col-md-4 section">
+          <div class="section-heading">Calls to date</div>
+          <div id="total-count"></div>
+          <hr>
+          <div class="section-heading">Dispatch mishaps</div>
+          <div id="total-mishaps"></div>
         </div>
       </div>
-      <div id="call-volume" class="col-md-4 section">
-        <div class="section-heading">Calls to date</div>
-        <div id="total-count"></div>
-        <hr>
-        <div class="section-heading">Dispatch mishaps</div>
-        <div id="total-mishaps"></div>
-      </div>
-    </div>
-    <hr>
-    <div class="row">
-      <div class="col-md-12">
-        <div class="row">
-          <div class="col-md-4">
-            <div class="section-heading">Chores</div>
+      <hr>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="row">
+            <div class="col-md-4">
+              <div class="section-heading">Chores</div>
             <div id="chores"></div>
           </div>
           <div class="col-md-8">
             <div class="section-heading">Notes</div>
-            <span id="notes"></span>
+              <span id="notes"></span>
+            </div>
           </div>
         </div>
       </div>
     </div>
+
+
+
+    <div id="dispatch" hidden>
+      <div class="row justify-content-center" id="dispatch-filler">
+        <div id="dispatch-time" class="col-5 text-center mt-4">
+        </div>
+      </div>
+      <div class="row justify-content-center">
+        <div class="col-5 text-center">
+         <div id="determinant" class="determinant mt-3 mb-3"></div>
+        </div>
+      </div>
+      <div class="row justify-content-center">
+        <div class="col-8 text-center">
+         <div id="complaint" class="determinant mt-3 mb-3"></div>
+        </div>
+      </div>
+      <div class="row justify-content-center">
+        <div class="col-8 text-center">
+         <div id="location" class="determinant mt-3 mb-3"></div>
+        </div>
+      </div>
+    </div>
+
   </div>
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
   <script type="text/javascript" src="/suncalc.js"></script>

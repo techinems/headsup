@@ -17,12 +17,13 @@ const pool = mariadb.createPool({
     user: process.env.DB_USER,
     password: process.env.DB_PASSWORD,
     connectionLimit: 10,
-    charset: 'utf8mb4'
+    charset: 'utf8mb4',
 });
 
 // Initialize express app
 const PORT = process.env.PORT || 8080;
 const WEBSITE_ACCESS_TOKEN = process.env.WEBSITE_ACCESS_TOKEN;
+const HERALD_TOKEN = process.env.HERALD_TOKEN;
 
 // app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -61,29 +62,49 @@ app.get('/notes', async (_, res) => {
 });
 
 app.post('/call/create', async (req, res) => {
-    await calls.createCall(pool, req.body);
-    const response_data = await calls.getTotalCalls(pool);
-    io.emit('calls', response_data);
-    res.send(response_data);
+    if (WEBSITE_ACCESS_TOKEN !== req.query.token) {
+        res.sendStatus(403);
+    }
+    else {
+        await calls.createCall(pool, req.body);
+        const response_data = await calls.getTotalCalls(pool);
+        io.emit('calls', response_data);
+        res.send(response_data);
+    }
 });
 
 app.post('/note/create', async (req, res) => {
-    const response_data = await notes.createNote(pool, req.body.note);
-    io.emit('notes', await notes.getNotes(pool));
-    res.send(response_data);
+    if (WEBSITE_ACCESS_TOKEN !== req.query.token) {
+        res.sendStatus(403);
+    }
+    else {
+        const response_data = await notes.createNote(pool, req.body.note);
+        io.emit('notes', await notes.getNotes(pool));
+        res.send(response_data);
+    }
 });
 
 app.post('/note/delete', async (req, res) => {
-    const response_data = await notes.deleteNote(pool, req.body.note);
-    io.emit('notes', await notes.getNotes(pool));
-    res.send(response_data);
+    if (WEBSITE_ACCESS_TOKEN !== req.query.token) {
+        res.sendStatus(403);
+    }
+    else {
+        const response_data = await notes.deleteNote(pool, req.body.note);
+        io.emit('notes', await notes.getNotes(pool));
+        res.send(response_data);
+    }
 });
 
 app.post('/mishap/create', async (req, res) => {
-    await mishap.createMishap(pool, req.body.mishap);
-    const response_data = await mishap.getTotalMishaps(pool);
-    io.emit('mishaps', response_data);
-    res.send(response_data);
+    if (WEBSITE_ACCESS_TOKEN !== req.query.token) {
+        res.sendStatus(403);
+    }
+    else {
+        await mishap.createMishap(pool, req.body.mishap);
+        const response_data = await mishap.getTotalMishaps(pool);
+        io.emit('mishaps', response_data);
+        res.send(response_data);
+    }
 });
 
 app.get('/mishap', async (_, res) => {
@@ -93,7 +114,17 @@ app.get('/mishap', async (_, res) => {
 
 app.post('/chores', (req, res) => {
     io.emit('chores', req.body);
-    res.send({success: true});
+    res.send({ success: true });
+});
+
+app.post('/dispatch', (req, res) => {
+    if (HERALD_TOKEN !== req.query.token) {
+        res.sendStatus(403);
+    } else {
+        console.log('received herald dispatch');
+        io.emit('dispatch', req.body);
+        res.send({ success: true });
+    }
 });
 
 io.on('connection', async () => {
