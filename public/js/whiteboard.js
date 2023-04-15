@@ -6,7 +6,7 @@ const latitude = 42.72927;
 //Time Constants(in Milliseconds)
 const oneMinute = 60000;
 const thirtyMinutes = oneMinute * 30;
-const threeMinutes = oneMinute * 3;
+const threeMinutes = oneMinute * 5;
 
 let dispatchTimeoutID = "";
 
