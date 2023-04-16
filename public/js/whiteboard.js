@@ -6,7 +6,7 @@ const latitude = 42.72927;
 //Time Constants(in Milliseconds)
 const oneMinute = 60000;
 const thirtyMinutes = oneMinute * 30;
-const threeMinutes = oneMinute * 3;
+const dispatchTimeoutTime = oneMinute * 5;
 
 let dispatchTimeoutID = "";
 
@@ -192,7 +192,7 @@ function handleDispatch(determinant, complaint, location) {
   document.getElementById("display").hidden = true;
   document.getElementById("dispatch").hidden = false;
 
-  dispatchTimeoutID = setTimeout(clearDispatch, threeMinutes);
+  dispatchTimeoutID = setTimeout(clearDispatch, dispatchTimeoutTime);
 }
 
 updateDate();
