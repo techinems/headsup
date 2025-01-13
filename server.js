@@ -1,5 +1,12 @@
 const express = require('express');
 const app = express();
+const session = require('express-session');
+const memoryStore = new session.MemoryStore();
+
+const Keycloak = require('keycloak-connect');
+const auth = new Keycloak({store: memoryStore});
+
+
 const path = require('path');
 const mariadb = require('mariadb');
 const bodyParser = require('body-parser');
@@ -28,6 +35,17 @@ const HERALD_TOKEN = process.env.HERALD_TOKEN;
 // app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: true,
+    store: memoryStore,
+  })
+);
+
+app.use(auth.middleware());
+
 app.use('/public', express.static(path.join(__dirname, 'public')));
 
 app.get('/suncalc.js', (_, res) => {
@@ -42,12 +60,8 @@ app.get('/', (req, res) => {
     }
 });
 
-app.get('/admin', (req, res) => {
-    if (WEBSITE_ACCESS_TOKEN !== req.query.token) {
-        res.sendStatus(403);
-    } else {
-        res.sendFile(path.join(__dirname, 'public/admin.html'));
-    }
+app.get('/admin', auth.protect(), (req, res) => {
+    res.sendFile(path.join(__dirname, 'public/admin.html'));
 });
 
 app.get('/crew', async (_, res) => {
@@ -61,50 +75,30 @@ app.get('/notes', async (_, res) => {
     res.send(response_data);
 });
 
-app.post('/call/create', async (req, res) => {
-    if (WEBSITE_ACCESS_TOKEN !== req.query.token) {
-        res.sendStatus(403);
-    }
-    else {
+app.post('/call/create', auth.protect(), async (req, res) => {
         await calls.createCall(pool, req.body);
         const response_data = await calls.getTotalCalls(pool);
         io.emit('calls', response_data);
         res.send(response_data);
-    }
 });
 
-app.post('/note/create', async (req, res) => {
-    if (WEBSITE_ACCESS_TOKEN !== req.query.token) {
-        res.sendStatus(403);
-    }
-    else {
+app.post('/note/create', auth.protect(), async (req, res) => {
         const response_data = await notes.createNote(pool, req.body.note);
         io.emit('notes', await notes.getNotes(pool));
         res.send(response_data);
-    }
 });
 
-app.post('/note/delete', async (req, res) => {
-    if (WEBSITE_ACCESS_TOKEN !== req.query.token) {
-        res.sendStatus(403);
-    }
-    else {
+app.post('/note/delete', auth.protect(), async (req, res) => {
         const response_data = await notes.deleteNote(pool, req.body.note);
         io.emit('notes', await notes.getNotes(pool));
         res.send(response_data);
-    }
 });
 
-app.post('/mishap/create', async (req, res) => {
-    if (WEBSITE_ACCESS_TOKEN !== req.query.token) {
-        res.sendStatus(403);
-    }
-    else {
+app.post('/mishap/create', auth.protect(), async (req, res) => {
         await mishap.createMishap(pool, req.body.mishap);
         const response_data = await mishap.getTotalMishaps(pool);
         io.emit('mishaps', response_data);
         res.send(response_data);
-    }
 });
 
 app.get('/mishap', async (_, res) => {

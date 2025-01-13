@@ -20,6 +20,8 @@
   "homepage": "https://github.com/rpiambulance/headsup#readme",
   "dependencies": {
     "express": "^4.21.1",
+    "express-session": "^1.18.1",
+    "keycloak-connect": "^26.0.7",
     "mariadb": "^3.0.2",
     "moment": "^2.29.4",
     "socket.io": "^4.8.0",
