@@ -223,7 +223,7 @@ socket.on("dispatch", (dispatchResponse) => {
   handleDispatch(
     dispatchResponse["CALL TYPE"].determinant,
     dispatchResponse["CALL TYPE"].complaint,
-    dispatchResponse["Location"];
+    dispatchResponse["Location"]
   );
 });
 
